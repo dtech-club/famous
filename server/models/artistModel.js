@@ -14,7 +14,7 @@ const artistSchema = new Schema(
         biography: { type: String },
         profilePic: { type: String },
         genres: { type: Array },
-        albums: { type: Array },
+        albums: [{ type: Schema.Types.ObjectId, ref: 'Album' }],
     },
     { timestamps: true }
 );
