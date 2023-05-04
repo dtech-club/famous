@@ -60,3 +60,32 @@ export const deleteArtist = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 }
+
+export const addAlbumToArtist = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const artist = await ArtistCollection.findById(id);
+        const album = new AlbumCollection(req.body);
+        artist.albums.push(album);
+        await artist.save();
+        res.json({ success: true, data: artist });
+    } catch (err) {
+        res.json({ success: false, message: err.message });
+    }
+}
+
+export const addTrackToAlbum = async (req, res) => {
+    try {
+        const { id, albumId } = req.params;
+        const artist = await ArtistCollection.findById(id);
+        const album = await AlbumCollection.findById(albumId);
+        const track = new TrackCollection(req.body);
+        artist.albums.push(album);
+        album.tracks.push(track);
+        await artist.save();
+        await album.save();
+        res.json({ success: true, data: artist });
+    } catch (err) {
+        res.json({ success: false, message: err.message });
+    }
+}
