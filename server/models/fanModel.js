@@ -15,9 +15,7 @@ const fanSchema = new Schema(
         profilePic: { type: String },
         favoriteArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
         favoriteAlbums: [{ type: Schema.Types.ObjectId, ref: 'Album' }],
-        favoriteTracks: [{ type: Schema.Types.ObjectId, ref: 'Track' }],
-        favoritePlaylists: [{ type: Schema.Types.ObjectId, ref: 'Playlist' }],
-        playlists: [{ type: Schema.Types.ObjectId, ref: 'Playlist' }],
+        playlist: [{ type: Schema.Types.ObjectId, ref: 'Track' }],
     },
     { timestamps: true }
 );

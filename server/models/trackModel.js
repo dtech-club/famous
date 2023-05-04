@@ -8,7 +8,7 @@ const trackSchema = new Schema({
     genre: {type: String, required: true},
     trackArt: {type: String},
     trackFile: {type: String, required: true},
-    trackLength: {type: String, required: true},
+    trackLength: {type: String},
     description: {type: String},
     relesedBy: {type: String},
     recordLabel: {type: String},

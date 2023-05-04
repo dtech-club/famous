@@ -3,9 +3,6 @@ import { Schema, model } from 'mongoose';
 const artistSchema = new Schema(
     {
         artisName: { type: String, required: true },
-        email: { type: String, required: true },
-        password: { type: String, required: true },
-        role: { type: String, default: 'artist' },
         address: { type: String },
         city: { type: String },
         state: { type: String },
