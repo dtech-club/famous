@@ -9,7 +9,7 @@ const artistSchema = new Schema(
         zip: { type: String },
         phone: { type: String },
         biography: { type: String },
-        profilePic: { type: String },
+        artistImage: { type: String },
         genres: { type: Array },
         albums: [{ type: Schema.Types.ObjectId, ref: 'Album' }],
     },

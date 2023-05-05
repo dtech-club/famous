@@ -2,9 +2,10 @@ import FanCollection from '../models/fanModel.js';
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
+import ArtistImageCollection from '../models/artistImageModel.js';
+import AlbumImageCollection from '../models/albumImageModel.js';
 
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+
 
 export const getAllArtists = async (req, res) => {
     try {
@@ -17,6 +18,17 @@ export const getAllArtists = async (req, res) => {
 export const createArtist = async (req, res) => {
     try {
         const artist = new ArtistCollection(req.body);
+        if (req.files) {
+            const artistImage = new ArtistImageCollection({
+                filename: new Date().getTime() + '_' + req.files.artistImage.name,
+                data: req.files.artistImage.data,
+                userId: artist._id
+            });
+            await artistImage.save();
+            artist.artistImage = artistImage;
+        }
+        
+
         await artist.save();
         res.json({ success: true, data: artist });
     } catch (err) {
@@ -66,6 +78,15 @@ export const addAlbumToArtist = async (req, res) => {
         const { id } = req.params;
         const artist = await ArtistCollection.findById(id);
         const album = new AlbumCollection(req.body);
+        if (req.files) {
+            const albumImage = new AlbumImageCollection({
+                filename: new Date().getTime() + '_' + req.files.albumImage.name,
+                data: req.files.albumImage.data,
+                userId: album._id
+            });
+            await albumImage.save();
+            album.albumImage = artistImage;
+        }
         artist.albums.push(album);
         await artist.save();
         res.json({ success: true, data: artist });
