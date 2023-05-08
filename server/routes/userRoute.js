@@ -15,7 +15,7 @@ router.post('/', rules, createUser);
 //login user
 router.post('/login', loginUser);
 // logout user
-router.post('/logout', auth, logoutUser);
+router.delete('/logout', auth, logoutUser);
 //verify token on page refresh
 router.get('/refreshpage', auth, (req, res) => {
     res.json({ success: true, data: req.user });
