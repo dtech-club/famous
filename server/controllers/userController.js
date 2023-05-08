@@ -84,18 +84,19 @@ export const loginUser = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 };
-export const logoutUser = async (req, res) => {
-    try {
-        if (req.session) {
-            req.session.destroy((err) => {
-                if (err) {
-                    res.json({ success: false, message: err.message });
-                } else {
-                    res.json({ success: true, data: 'Logout successfully' });
-                }
-            });
-        }
-    } catch (err) {
-        res.json({ success: false, message: err.message });
-    }
-};
+
+// export const logoutUser = async (req, res) => {
+//     try {
+//         if (req.session) {
+//             req.session.destroy((err) => {
+//                 if (err) {
+//                     res.json({ success: false, message: err.message });
+//                 } else {
+//                     res.json({ success: true, data: 'Logout successfully' });
+//                 }
+//             });
+//         }
+//     } catch (err) {
+//         res.json({ success: false, message: err.message });
+//     }
+// };
