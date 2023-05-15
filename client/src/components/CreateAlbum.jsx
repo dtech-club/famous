@@ -6,7 +6,7 @@ export default function CreateAlbum() {
     const navigate = useNavigate();
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
     const CreateAlbum = (e) => {
-        const album = (e) => {
+        
             const album = {
                 albumName: e.target.albumName.value,
                 artistName: e.target.artistName.value,
@@ -188,4 +188,4 @@ export default function CreateAlbum() {
             </div>
         );
     };
-}
+
