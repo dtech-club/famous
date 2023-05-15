@@ -1,4 +1,4 @@
-import FanCollection from '../models/fanModel.js';
+//import FanCollection from '../models/fanModel.js';
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
@@ -85,18 +85,4 @@ export const loginUser = async (req, res) => {
     }
 };
 
-// export const logoutUser = async (req, res) => {
-//     try {
-//         if (req.session) {
-//             req.session.destroy((err) => {
-//                 if (err) {
-//                     res.json({ success: false, message: err.message });
-//                 } else {
-//                     res.json({ success: true, data: 'Logout successfully' });
-//                 }
-//             });
-//         }
-//     } catch (err) {
-//         res.json({ success: false, message: err.message });
-//     }
-// };
+

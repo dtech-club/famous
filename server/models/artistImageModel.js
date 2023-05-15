@@ -7,6 +7,6 @@ const ArtistImageSchema = new Schema({
     userId:{type:Schema.Types.ObjectId, ref:"users"}
 })
 
-const ArtistImageCollection= model("images",ArtistImageSchema)
+const ArtistImageCollection= model("artistImages",ArtistImageSchema)
 
 export default ArtistImageCollection;
