@@ -1,4 +1,4 @@
-import FanCollection from '../models/fanModel.js';
+//import FanCollection from '../models/fanModel.js';
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
