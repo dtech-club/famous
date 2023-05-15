@@ -9,7 +9,7 @@ const trackSchema = new Schema(
         genre: { type: String, required: true },
         trackFile: { type: String, required: true },
         trackLength: { type: String },
-        recordLabel: { type: String },
+       
     },
     { timestamps: true }
 );

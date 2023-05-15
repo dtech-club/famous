@@ -9,7 +9,7 @@ const albumSchema = new Schema(
         albumImage: { type: String, required: true },
         tracks: [{ type: Schema.Types.ObjectId, ref: 'Track' }],
         description: { type: String },
-        relesedBy: { type: String },
+        
     },
     { timestamps: true }
 );

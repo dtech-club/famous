@@ -3,11 +3,11 @@ import { Schema, model } from 'mongoose';
 const artistSchema = new Schema(
     {
         artisName: { type: String, required: true },
-        address: { type: String },
+        artistImage: { type: String },
+
         city: { type: String },
         state: { type: String },
-        zip: { type: String },
-        phone: { type: String },
+
         biography: { type: String },
         artistImage: { type: String },
         genres: { type: Array },
