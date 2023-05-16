@@ -1,3 +1,5 @@
+import Login from "./Login.jsx";
+
 const Navbar = () => {
   return (
     <div className="navbar">
@@ -22,7 +24,7 @@ const Navbar = () => {
               <a href="#">Register</a>
             </li>
             <li>
-              <a href="#">Login</a>
+              <a href="/login">Login</a>
             </li>
           </ul>
         </nav>
