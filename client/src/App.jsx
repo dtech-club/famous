@@ -1,30 +1,33 @@
-import ApiSection from "./components/ApiSection.jsx";
-import FeaturedAlbums from "./components/FeaturedAlbums.jsx";
-import FeaturedArtists from "./components/FeaturedArtists.jsx";
-import Footer from "./components/Footer.jsx";
-import Header from "./components/Header.jsx";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Artists from "./components/Artists.jsx";
+import Albums from "./components/Albums.jsx";
+import Login from "./components/Login.jsx";
+import Signup from "./components/Signup.jsx";
+import CreateArtist from "./components/addingArtistByAdmin/CreateArtist.jsx";
+import CreateAlbum from "./components/addingArtistByAdmin/CreateAlbum.jsx";
+import CreateTrack from "./components/addingArtistByAdmin/CreateTrack.jsx";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Navbar />
-
-      <main>
-        <section>
-          <ApiSection />
-        </section>
-        <section>
-          <FeaturedArtists />
-        </section>
-        <section>
-          <FeaturedAlbums />
-        </section>
-      </main>
-      <Footer />
-      <p>&copy; 2023 Famous. All Rights Reserved.</p>
-    </div>
+    <HashRouter>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/artists" element={<Artists />} />
+          <Route path="/albums" element={<Albums />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/createartist" element={<CreateArtist />} />
+          <Route path="/createalbum" element={<CreateAlbum />} />
+          <Route path='/createtrack' element={<CreateTrack />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
 
