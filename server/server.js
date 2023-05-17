@@ -26,7 +26,7 @@ app.use(express.static('views/dist'))
 
 
 app.use(cors({ exposedHeaders: ['auth-token'] }));
-
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DB_CONNECTION)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.log(err));
