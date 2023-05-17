@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { MyContext } from '../context/context';
 
 export default function Navbar() {
-  const {user} = useContext(MyContext);
+    const { user } = useContext(MyContext);
     return (
         <nav>
             <ul>
@@ -17,18 +17,16 @@ export default function Navbar() {
                 <li>
                     <NavLink to="/albums"> Albums </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/login"> Login </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/signup"> Signup </NavLink>
-                </li>
                 {/* // if user is admin show the crate artist link */}
                 {user ? (
                     <li>
                         <NavLink to="/createartist"> Create Artist </NavLink>
                     </li>
-                ) : null}
+                ) : (
+                    <li>
+                        <NavLink to="/login"> Login </NavLink>
+                    </li>
+                )}
             </ul>
         </nav>
     );

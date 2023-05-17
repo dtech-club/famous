@@ -2,14 +2,17 @@
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
+import UserCollection from '../models/userModel.js';
+import ArtistImageCollection from '../models/artistImageModel.js';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await FanCollection.find();
+        const users = await UserCollection.find();
         res.json({ success: true, data: users });
+
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -17,17 +20,21 @@ export const getAllUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
     try {
-        const user = new FanCollection(req.body);
+        const user = new UserCollection(req.body);
+
+        const hasedPassword = bcrypt.hashSync(user.password, 10);
+        user.password = hasedPassword;
+
         await user.save();
         res.json({ success: true, data: user });
-    } catch {
+    } catch (err){
         res.json({ success: false, message: err.message });
     }
 };
 export const getSingleUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await FanCollection.findById(id);
+        const user = await UserCollection.findById(id);
         if (user) {
             res.json({ success: true, data: user });
         } else {
@@ -40,7 +47,7 @@ export const getSingleUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const updateUser = await FanCollection.findByIdAndUpdate(id, req.body, {
+        const updateUser = await UserCollection.findByIdAndUpdate(id, req.body, {
             new: true,
         });
         res.json({ success: true, data: updateUser });
@@ -51,7 +58,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedUser = await FanCollection.findByIdAndDelete(id);
+        const deletedUser = await UserCollection.findByIdAndDelete(id);
         res.json({ success: true, data: deletedUser });
     } catch {
         res.json({ success: false, message: err.message });

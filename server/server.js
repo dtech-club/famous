@@ -34,7 +34,7 @@ mongoose.connect(process.env.DB_CONNECTION)
 //Server routes
 app.use('/artists', artistsRoute);
 app.use('/music', musicRoute);
-app.use('/fans', userRoute)
+app.use('/users', userRoute)
 
 app.get('/artistimages/:filename', async (req, res) => {
     const artistImage = await ArtistImageCollection.findOne({ filename: req.params.filename });
