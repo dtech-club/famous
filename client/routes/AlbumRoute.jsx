@@ -1,4 +1,3 @@
-import express from "express";
 import AlbumCollection from "../../server/models/albumModel.js";
 
 const app = express();
