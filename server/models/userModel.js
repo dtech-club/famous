@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
 
-const fanSchema = new Schema(
+const userSchema = new Schema(
     {
-        userName: { type: String, required: true },
+        userName: { type: String, required: true, unique: true },
         email: { type: String, required: true },
         password: { type: String, required: true },
         role: { type: String, default: 'fan', enum: ['fan', 'admin'] },
@@ -14,6 +14,6 @@ const fanSchema = new Schema(
     { timestamps: true }
 );
 
-const FanCollection = model('Fan', fanSchema);
+const UserCollection = model('User', userSchema);
 
-export default FanCollection;
+export default UserCollection;

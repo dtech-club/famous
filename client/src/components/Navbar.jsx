@@ -1,36 +1,38 @@
-import Login from "./Login.jsx";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { MyContext } from "../context/context";
 
-const Navbar = () => {
+export default function Navbar() {
+  const { user } = useContext(MyContext);
   return (
-    <div className="navbar">
-      {/* here we will have the icon first */}
-      <div className="inputInHomepage">
-        <button>Search</button>
-      </div>
+    <nav>
+      <ul>
+        <li>
+          {" "}
+          <NavLink to="/search"> Search </NavLink>{" "}
+        </li>
 
-      <div className="navigationIntoOtherPages">
-        <nav>
-          <ul>
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Contacts</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a href="#">Register</a>
-            </li>
-            <li>
-              <a href="/login">Login</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
+        <li>
+          {" "}
+          <NavLink to="/"> Home </NavLink>{" "}
+        </li>
+        <li>
+          <NavLink to="/artists"> Artists </NavLink>
+        </li>
+        <li>
+          <NavLink to="/albums"> Albums </NavLink>
+        </li>
+        {/* // if user is admin show the crate artist link */}
+        {user ? (
+          <li>
+            <NavLink to="/createartist"> Create Artist </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink to="/login"> Login </NavLink>
+          </li>
+        )}
+      </ul>
+    </nav>
   );
-};
-
-export default Navbar;
+}

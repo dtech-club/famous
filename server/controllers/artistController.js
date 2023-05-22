@@ -2,8 +2,10 @@
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
+import TrackFileCollection from '../models/trackFileModel.js';
 import ArtistImageCollection from '../models/artistImageModel.js';
 import AlbumImageCollection from '../models/albumImageModel.js';
+
 
 
 
@@ -85,10 +87,11 @@ export const addAlbumToArtist = async (req, res) => {
                 userId: album._id
             });
             await albumImage.save();
-            album.albumImage = artistImage;
+            album.albumImage = albumImage;
         }
         artist.albums.push(album);
         await artist.save();
+        await album.save();
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -101,10 +104,23 @@ export const addTrackToAlbum = async (req, res) => {
         const artist = await ArtistCollection.findById(id);
         const album = await AlbumCollection.findById(albumId);
         const track = new TrackCollection(req.body);
-        artist.albums.push(album);
+
+        if (req.files) {
+            const trackFile = new TrackFileCollection({
+                filename: new Date().getTime() + '_' + req.files.trackFile.name,
+                data: req.files.trackFile.data,
+                userId: track._id
+            });
+            await trackFile.save();
+        }
+
+
+
+        //artist.albums.push(album);
         album.tracks.push(track);
         await artist.save();
         await album.save();
+        await track.save()
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });

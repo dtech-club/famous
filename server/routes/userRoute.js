@@ -13,7 +13,7 @@ router.get('/', auth, getAllUsers);
 //create user
 router.post('/', rules, createUser);
 //login user
-router.post('/login', loginUser);
+router.post('/login',isAdmin, loginUser);
 // logout user
 //router.delete('/logout', auth, logoutUser);
 //verify token on page refresh
