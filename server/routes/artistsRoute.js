@@ -12,15 +12,18 @@ const router = express.Router();
 //get all artists (get)
 router.get('/', getAllArtists);
 //create artist (post)
-router.post('/', auth, isAdmin, createArtist);
+//router.post('/', auth, isAdmin, createArtist);
+router.post('/', createArtist);
 //get artist (get)
 router.get('/:id', getArtist);
 //update user (patch)
 router.patch('/:id', auth, isAdmin, updateArtist);
 // add an album to an artist (patch)
-router.patch('/:id/album', auth, isAdmin, addAlbumToArtist);
+//router.patch('/:id/album', auth, isAdmin, addAlbumToArtist);
+router.patch('/:id/album', addAlbumToArtist);
 //add a track to an album (patch)
-router.patch('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
+//router.patch('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
+router.patch('/:id/album/:albumId/track', addTrackToAlbum);
 //delete user (delete)
 router.delete('/:id', auth, isAdmin, deleteArtist);
 

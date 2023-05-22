@@ -87,10 +87,11 @@ export const addAlbumToArtist = async (req, res) => {
                 userId: album._id
             });
             await albumImage.save();
-            album.albumImage = artistImage;
+            album.albumImage = albumImage;
         }
         artist.albums.push(album);
         await artist.save();
+        await album.save();
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -115,10 +116,11 @@ export const addTrackToAlbum = async (req, res) => {
 
 
 
-        artist.albums.push(album);
+        //artist.albums.push(album);
         album.tracks.push(track);
         await artist.save();
         await album.save();
+        await track.save()
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
