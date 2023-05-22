@@ -2,6 +2,7 @@ import express from 'express';
 import { auth } from '../middleware/auth.js';
 import { isAdmin } from '../middleware/isAdmin.js';
 import { getAllArtists, getArtist } from '../controllers/artistController.js';
+import { getAlbum, getAllAlbums, getAllTracks, getTrack } from '../controllers/musicContoller.js';
 
 
 const router = express.Router();
