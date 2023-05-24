@@ -1,5 +1,9 @@
 const Image = ({ url }) => {
-    return <img src={url} />;
+    return (
+        <div>
+        <img src={url} alt="Artist" />
+        </div>
+    );
 };
 
 export default Image;

@@ -87,7 +87,7 @@ export const addAlbumToArtist = async (req, res) => {
                 userId: album._id
             });
             await albumImage.save();
-            album.albumImage = albumImage;
+            album.albumImage = `http://localhost:4000/albumimages/${albumImage.filename}`;
         }
         artist.albums.push(album);
         await artist.save();
