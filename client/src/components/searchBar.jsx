@@ -1,56 +1,108 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function SearchEngine() {
-  const [searchTerm, setSearchTerm] = useState("");
+const SearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("all");
   const [searchResults, setSearchResults] = useState([]);
 
+  const [albums, setAlbums] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [songs, setSongs] = useState([]);
+
   useEffect(() => {
-    async function search() {
-      try {
-        const response = await axios.get(`/search?term=${searchTerm}`);
-        setSearchResults(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+    fetchAlbums();
+    fetchArtists();
+    fetchSongs();
+  }, []);
+
+  const fetchAlbums = async () => {
+    try {
+      const response = await axios.get("/albums");
+      setAlbums(response.data);
+    } catch (error) {
+      console.error("Error fetching albums:", error);
     }
+  };
 
-    if (searchTerm.trim() !== "") {
-      search();
-    } else {
-      setSearchResults([]);
+  const fetchArtists = async () => {
+    try {
+      const response = await axios.get("/artists");
+      setArtists(response.data);
+    } catch (error) {
+      console.error("Error fetching artists:", error);
     }
-  }, [searchTerm]);
+  };
 
-  function handleSearch(event) {
-    setSearchTerm(event.target.value);
-  }
+  const fetchSongs = async () => {
+    try {
+      const response = await axios.get("/songs");
+      setSongs(response.data);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    }
+  };
 
-  function handleSubmit(event) {
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    search();
-  }
+    // Perform search with the searchQuery and filter
+    console.log("Performing search with query:", searchQuery);
+    console.log("Filter:", filter);
+    // Replace the console.log with your search logic
+    // For example, you can update the searchResults state with the fetched results
+    const results = [
+      { title: "Song 1", artist: "Artist 1", album: "Album 1" },
+      { title: "Song 2", artist: "Artist 2", album: "Album 2" },
+      { title: "Song 3", artist: "Artist 3", album: "Album 3" },
+    ];
+    setSearchResults(results);
+    setSearchQuery("");
+  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="search-bar" onSubmit={handleSubmit}>
         <input
           type="text"
-          value={searchTerm}
-          onChange={handleSearch}
-          placeholder="Search..."
+          placeholder="Search"
+          value={searchQuery}
+          onChange={handleChange}
+          className="search-input"
         />
-        <button type="submit">Search</button>
+        <select
+          value={filter}
+          onChange={handleFilterChange}
+          className="filter-select"
+        >
+          <option value="all">All</option>
+          <option value="artist">Artist</option>
+          <option value="album">Album</option>
+          <option value="song">Song</option>
+        </select>
+        <button type="submit" className="search-button">
+          <i className="fa fa-search" aria-hidden="true"></i>
+        </button>
       </form>
-
-      {searchResults.map((result) => (
-        <div key={result.id}>
-          <h2>{result.title}</h2>
-        </div>
-      ))}
+      <div className="search-results">
+        <p>Showing {searchResults.length} results</p>
+        {searchResults.map((result, index) => (
+          <div key={index} className="result-item">
+            <h3>{result.title}</h3>
+            <p>{result.artist}</p>
+            <p>{result.album}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
-export default SearchEngine;
+export default SearchBar;
