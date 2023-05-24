@@ -1,18 +1,46 @@
-const Discography = ({discography}) => {
-    return (
-        <div>
-            <h2>Discography</h2>
-            <ul>
-                {discography.map((album) => (
-                    <li key={album.id}>
-                        <img src={album.albumImage} alt={album.title} />
-                        <p>{album.title}</p>
-                        <p>{album.year}</p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+// const Discography = ({ discography, index }) => {
+//     console.log(discography);
+//     return (
+//         <div>
+//             <h2>Discography</h2>
+//             <ul>
 
-export default Discography;
+//                 {discography.map((album) => {
+//                     return (
+//                         <li key={index}>
+
+//                             <img src={album.albumImage} alt={album.albumName} />
+//                             <p>{album.albumName}</p>
+//                             <p>{album.releaseDate}</p>
+//                             <p>{album.genre}</p>
+//                         </li>
+//                     );
+//                 })}
+//             </ul>
+//         </div>
+//     );
+// };
+
+// export default Discography;
+
+const Discography = ({ discography }) => {
+    return (
+      <div>
+        <h2>Discography</h2>
+        <ul>
+          {discography.map((album, index) => {
+            return (
+              <li key={index}>
+                <img src={album.albumImage} alt={album.albumName} />
+                <p>{album.albumName}</p>
+                <p>{album.releaseDate}</p>
+                <p>{album.genre}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  };
+  
+  export default Discography;

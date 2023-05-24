@@ -126,3 +126,15 @@ export const addTrackToAlbum = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 }
+
+// getAllArtistAlbums
+export const getAllArtistAlbums = async (req, res) => {
+        try{
+            const { id } = req.params;
+            const artistAlbums = await AlbumCollection.find({artistId: id}).populate('Album');
+            res.json({ success: true, data: artistAlbums });
+        }
+        catch (err) {
+            res.json({ success: false, message: err.message });
+        }
+};

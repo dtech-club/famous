@@ -16,6 +16,14 @@ router.get('/', getAllArtists);
 router.post('/', createArtist);
 //get artist (get)
 router.get('/:id', getArtist);
+
+//get all tracks from an album (get)
+//router.get('/tracks/:id', getAllTracks);
+//get all albums from an artist (get)
+router.get('/albums/:id', getAllArtistAlbums);
+
+
+
 //update user (patch)
 router.patch('/:id', auth, isAdmin, updateArtist);
 // add an album to an artist (patch)

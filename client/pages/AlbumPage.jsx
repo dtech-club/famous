@@ -12,28 +12,29 @@ import AlbumName from '../page_components/AlbumName.jsx';
 
 const AlbumPage = () => {
     const { state } = useLocation();
-     return (
-        <main>
-            <section>
-                <AlbumImage url={state?.albumImage} />
-            </section>
-            <section>
-                <AlbumName name={state?.albumName} />
-            </section>
-            <section>
-                <AlbumTrackList tracklist={state?.tracks} />
-            </section>
-            <aside>
+    return (
+        <div>
+            <main>
+                <section>
+                    <AlbumImage url={state?.albumImage} />
+                </section>
+                <section>
+                    <AlbumName name={state?.albumName} />
+                </section>
+                <section>
+                    <AlbumTrackList tracklist={state?.tracks} />
+                </section>
+            </main>
+            {/* <aside>
                 <div>
                     <ArtistImage url={state?.artistImage} />
                     <ArtistName name={state?.artistName} />
                 </div>
                 <div>
-                    <ArtistDiscography discography={state?.discoraphy}/>
+                    <ArtistDiscography discography={state?.discoraphy} />
                 </div>
-                
-            </aside>
-        </main>
+            </aside> */}
+        </div>
     );
 };
 export default AlbumPage;
