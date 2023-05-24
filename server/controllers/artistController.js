@@ -25,7 +25,7 @@ export const createArtist = async (req, res) => {
                 filename: new Date().getTime() + '_' + req.files.artistImage.name,
                 data: req.files.artistImage.data,
                 userId: artist._id
-        
+        })
             await artistImage.save();
             artist.artistImage = `http://localhost:4000/artistimages/${artistImage.filename}`;
         }
