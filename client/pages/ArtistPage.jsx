@@ -13,16 +13,16 @@ export default function ArtistPage () {
     return (
         <main>
             <section>
-                <Image url = {state.artistImage}/>
+                <Image url = {state?.artistImage}/>
             </section>
             <section>
                 <Name name = {state?.artistName}/>
             </section>
             <section>
-                <Biography />
+                <Biography biography={state?.biography} />
             </section>
             <section>
-                <PersonalInfo />
+                <PersonalInfo city={state?.city} country={state?.state} genre={state?.genre}/>
             </section>
             <section>
                 <Discography />
