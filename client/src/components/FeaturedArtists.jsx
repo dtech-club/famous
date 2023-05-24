@@ -14,7 +14,13 @@ const FeaturedArtists = () => {
             <div className="artists">
                 {artists.map((artist) => {
                     return (
-                        <div className="small-artists"><Link to={`/artists/${artist._id}`} state={artist}>{artist.artistName}</Link></div>
+                        <Link to={`/artists/${artist._id}`} state={artist}>
+                            <div className="small-artists">
+                                {artist.artistImage}
+                                {artist.artistName}
+                                {artist.genre}
+                            </div>
+                        </Link>
                     );
                 })}
             </div>
