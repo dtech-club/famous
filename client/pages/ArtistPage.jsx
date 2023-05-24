@@ -3,26 +3,31 @@ import Name from '../page_components/Name.jsx';
 import Biography from '../page_components/Biography.jsx';
 import Discography from '../page_components/Discography.jsx';
 import PersonalInfo from '../page_components/PersonalInfo.jsx';
+import axios from 'axios';
+import {useEffect,useState} from 'react';
+import { useLocation } from 'react-router-dom';
 
-const ArtistPage = () => {
+
+export default function ArtistPage () {
+    const {state }= useLocation()
     return (
-            <main>
-                <section>
-                    <Image />
-                </section>
-                <section>
-                    <Name/>
-                </section>
-                <section>
-                    <Biography />
-                </section>
-                <section>
-                    <PersonalInfo />
-                </section>
-                <section>
-                    <Discography/>
-                </section>
-            </main>
+        <main>
+            <section>
+                <Image url = {state.artistImage}/>
+            </section>
+            <section>
+                <Name name = {state?.artistName}/>
+            </section>
+            <section>
+                <Biography />
+            </section>
+            <section>
+                <PersonalInfo />
+            </section>
+            <section>
+                <Discography />
+            </section>
+        </main>
     );
 };
 

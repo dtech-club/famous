@@ -9,11 +9,11 @@ const router = express.Router();
 
 //routes
 //get all artists (get)
-router.get('/', getAllArtists);
+//router.get('/', getAllArtists);
 //get all tracks (get)
-router.get('/', getAllTracks);
+router.get('/tracks', getAllTracks);
 //get all albums (get)
-router.get('/', getAllAlbums);
+router.get('/albums', getAllAlbums);
 
 //get artist (get)
 router.get('/:id', getArtist);

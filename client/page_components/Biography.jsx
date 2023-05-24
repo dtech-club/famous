@@ -1,5 +1,3 @@
-const Biography = () => {
+const Biography = () => {};
 
-}
-
-export default Biography
+export default Biography;

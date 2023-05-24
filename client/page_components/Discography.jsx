@@ -1,5 +1,3 @@
-const Discography = () => {
+const Discography = () => {};
 
-}
-
-export default Discography
+export default Discography;
