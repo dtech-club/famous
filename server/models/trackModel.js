@@ -7,7 +7,7 @@ const trackSchema = new Schema(
         albumName: { type: String, required: true },
         releaseDate: { type: String, required: true },
         genre: { type: String, required: true },
-        trackFile: { type: Schema.Types.ObjectId, ref: 'TrackFiles' },
+        trackFile: { type: String, required: true },
         trackLength: { type: String },
        
     },
