@@ -17,5 +17,5 @@ export const axiosWithToken = axios.create({
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Container>
     <App />
-  </Container>,
+  </Container>
 )

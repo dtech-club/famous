@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import fileupload from 'express-fileupload';
+import stream from 'stream';
 
 import artistsRoute from './routes/artistsRoute.js';
 import musicRoute from './routes/musicRoute.js';

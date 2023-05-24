@@ -6,7 +6,8 @@ import { axiosWithToken } from '../main.jsx';
 
 export default function Container({ children }) {
     const [user, setUser] = useState(null);
-
+    const [artists, setArtists] = useState([]);
+    const [albums, setAlbums] = useState([]);
     useEffect(() => {
         if (localStorage.getItem('token')) {
             axiosWithToken
@@ -21,10 +22,21 @@ export default function Container({ children }) {
                     }
                 });
         }
+        axios.get('http://localhost:4000/artists').then((response) => {
+            if (response.data.success) {
+                console.log(response.data.data)
+                setArtists(response.data.data);
+            }
+        });
+        axios.get('http://localhost:4000/music/albums').then((response) => {
+            if (response.data.success) {
+                setAlbums(response.data.data);
+            }
+        });
     }, []);
 
     return (
-        <MyContext.Provider value={{ user, setUser }}>
+        <MyContext.Provider value={{ user, setUser,artists, setArtists,albums,setAlbums }}>
             <Toaster />
             {children}
         </MyContext.Provider>
