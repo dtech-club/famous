@@ -11,7 +11,7 @@ import AlbumImageCollection from '../models/albumImageModel.js';
 
 export const getAllArtists = async (req, res) => {
     try {
-        const artists = await ArtistCollection.find();
+        const artists = await ArtistCollection.find().populate('albums');
         res.json({ success: true, data: artists });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -40,7 +40,7 @@ export const createArtist = async (req, res) => {
 export const getArtist = async (req, res) => {
     try {
         const { id } = req.params;
-        const artist = await ArtistCollection.findById(id);
+        const artist = await ArtistCollection.findById(id).populate('albums');
         if (artist) {
             res.json({ success: true, data: artist });
         } else {
@@ -126,3 +126,5 @@ export const addTrackToAlbum = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 }
+
+

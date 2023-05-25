@@ -5,7 +5,7 @@ import TrackCollection from '../models/trackModel.js';
 //get all albums (get)
 export const getAllAlbums = async (req, res) => {
     try {
-        const albums = await AlbumCollection.find();
+        const albums = await AlbumCollection.find().populate('tracks');
         res.json({ success: true, data: albums });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -25,7 +25,7 @@ export const getAllTracks = async (req, res) => {
 export const getAlbum = async (req, res) => {
     try {
         const { id } = req.params;
-        const album = await AlbumCollection.findById(id);
+        const album = await AlbumCollection.findById(id).populate('tracks');
         if (album) {
             res.json({ success: true, data: album });
         } else {
