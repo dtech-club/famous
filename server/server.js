@@ -49,4 +49,11 @@ app.get('/albumimages/:filename', async (req, res) => {
     readStream.pipe(res);
 })
 
+/// SERVING THE AUDIO FILE
+app.get('/tracks/:filename', async (req, res) => {
+    const trackFile = await TrackFileCollection.findOne({ filename: req.params.filename });
+    const readStream = stream.Readable.from(trackFile.data)
+    readStream.pipe(res);
+})
+
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`));

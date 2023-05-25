@@ -1,19 +1,24 @@
+import { MyContext } from '../context/context.js';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
 const FeaturedAlbums = () => {
-  return (
-    <div className="albums-section">
-      <div className="albums-menu">
-        <p>{/* here we will make the featured artists */}</p>
-        <p>Featured albums</p>
-        <button className="view-artists">View all</button>
-      </div>
-      <div className="albums">
-        <div className="small-album">first album</div>
-        <div className="small-album">second album</div>
-        <div className="small-album">third album</div>
-        <div className="small-album">fourth album</div>
-      </div>
-    </div>
-  );
+    const { albums } = useContext(MyContext);
+    return (
+        <div className="albums">
+            {albums.map((album) => {
+                return (
+                    <Link to={`/albums/${album._id}`} state={album}>
+                        <div className="small-albums">
+                            <h3>{album.artistName}</h3>
+                            <img src={album.albumImage} alt="" />
+                            <p>{album.albumName}</p>
+                        </div>
+                    </Link>
+                );
+            })}
+        </div>
+    );
 };
 
 export default FeaturedAlbums;
