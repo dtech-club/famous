@@ -40,7 +40,7 @@ export const createArtist = async (req, res) => {
 export const getArtist = async (req, res) => {
     try {
         const { id } = req.params;
-        const artist = await ArtistCollection.findById(id);
+        const artist = await ArtistCollection.findById(id).populate('albums');
         if (artist) {
             res.json({ success: true, data: artist });
         } else {
@@ -112,6 +112,7 @@ export const addTrackToAlbum = async (req, res) => {
                 userId: track._id
             });
             await trackFile.save();
+            track.trackFile = `http://localhost:4000/trackfiles/${trackFile.filename}`;
         }
 
 
@@ -127,14 +128,4 @@ export const addTrackToAlbum = async (req, res) => {
     }
 }
 
-// getAllArtistAlbums
-export const getAllArtistAlbums = async (req, res) => {
-        try{
-            const { id } = req.params;
-            const artistAlbums = await AlbumCollection.find({artistId: id}).populate('Album');
-            res.json({ success: true, data: artistAlbums });
-        }
-        catch (err) {
-            res.json({ success: false, message: err.message });
-        }
-};
+

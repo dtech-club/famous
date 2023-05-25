@@ -5,6 +5,7 @@ const albumSchema = new Schema(
         artistId: { type: Schema.Types.ObjectId, ref: 'Artist', required: true },
         albumName: { type: String, required: true },
         artistName: { type: String, required: true },
+        artistId: { type: Schema.Types.ObjectId, ref: 'Artist' },
         releaseDate: { type: String, required: true },
         genre: { type: String, required: true },
         albumImage: { type: String},
