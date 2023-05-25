@@ -7,7 +7,7 @@ const artistSchema = new Schema(
         city: { type: String },
         state: { type: String },
         biography: { type: String },
-        genres: { type: Array },
+        genres: [{ type: String }],
         albums: [{ type: Schema.Types.ObjectId, ref: 'Album' }],
     },
     { timestamps: true }
