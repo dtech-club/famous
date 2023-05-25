@@ -112,6 +112,7 @@ export const addTrackToAlbum = async (req, res) => {
                 userId: track._id
             });
             await trackFile.save();
+            track.trackFile = `http://localhost:4000/trackfiles/${trackFile.filename}`;
         }
 
 
