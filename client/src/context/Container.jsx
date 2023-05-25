@@ -8,6 +8,9 @@ export default function Container({ children }) {
     const [user, setUser] = useState(null);
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
+    const [singleArtist, setSingleArtist] = useState({});
+    const [artistIdState, setArtistIdState] = useState('');
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             axiosWithToken
@@ -35,9 +38,39 @@ export default function Container({ children }) {
         });
     }, []);
 
+    useEffect(() => {
+        axios
+            .get(`http://localhost:4000/artists/${artistIdState}`)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.success) {
+                    console.log('response.data.data', response.data.data);
+                    console.log(' 1 singleArtist', singleArtist)
+                    setSingleArtist({data: 'idiot'})
+                    console.log(' 2 updated singleArtist', singleArtist)                    
+                    setSingleArtist(response.data.data);
+                    console.log('single artist', singleArtist);
+                    //console.log('singleArtist', singleArtist);
+                } else {
+                    toast.error(response.data.data);
+                }
+            });
+    }, [artistIdState]);
+
     return (
         <MyContext.Provider
-            value={{ user, setUser, artists, setArtists, albums, setAlbums }}
+            value={{
+                user,
+                setUser,
+                artists,
+                setArtists,
+                albums,
+                setAlbums,
+                singleArtist,
+                setSingleArtist,
+                artistIdState,
+                setArtistIdState,
+            }}
         >
             <Toaster />
             {children}
