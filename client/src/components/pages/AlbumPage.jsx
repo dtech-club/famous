@@ -8,9 +8,11 @@ import AlbumTrackList from '../page_components/AlbumTrackList.jsx';
 import ArtistImage from '../page_components/ArtistImage.jsx';
 import ArtistName from '../page_components/ArtistName.jsx';
 import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
+import ArtistInformationSidebar from '../ArtistInformationSidebar.jsx';
 
 const AlbumPage = () => {
     const { state } = useLocation();
+    
      return (
         <main>
             <section>
@@ -22,16 +24,9 @@ const AlbumPage = () => {
             <section>
                 <AlbumTrackList tracklist={state?.tracks} />
             </section>
-            <aside>
-                <div>
-                    <ArtistImage url={state?.artistImage} />
-                    <ArtistName name={state?.artistName} />
-                </div>
-                <div>
-                    <ArtistDiscography discography={state?.discoraphy}/>
-                </div>
-                
-            </aside>
+             <aside>
+                <ArtistInformationSidebar artistId={state?.artistId }/>
+             </aside>
         </main>
     );
 };

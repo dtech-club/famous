@@ -26,6 +26,7 @@ function App() {
                     <Route path="/albums" element={<Albums />} />
                     <Route path="/albums/:id" element={<AlbumPage />} />
                     <Route path="/login" element={<Login />} />
+                    
                     <Route path="/createartist" element={<CreateArtist />} />
                     <Route path="/createalbum" element={<CreateAlbum />} />
                     <Route path="/createtrack" element={<CreateTrack />} />

@@ -24,7 +24,7 @@ export default function Container({ children }) {
         }
         axios.get('http://localhost:4000/artists').then((response) => {
             if (response.data.success) {
-                console.log(response.data.data)
+                console.log(response.data.data);
                 setArtists(response.data.data);
             }
         });
@@ -36,7 +36,9 @@ export default function Container({ children }) {
     }, []);
 
     return (
-        <MyContext.Provider value={{ user, setUser,artists, setArtists,albums,setAlbums }}>
+        <MyContext.Provider
+            value={{ user, setUser, artists, setArtists, albums, setAlbums }}
+        >
             <Toaster />
             {children}
         </MyContext.Provider>
