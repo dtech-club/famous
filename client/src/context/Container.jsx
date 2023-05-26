@@ -11,6 +11,8 @@ export default function Container({ children }) {
     const [singleArtist, setSingleArtist] = useState({});
     const [artistIdState, setArtistIdState] = useState('');
 
+    ///get all artists and albums on page load
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             axiosWithToken
@@ -38,6 +40,10 @@ export default function Container({ children }) {
         });
     }, []);
 
+    // Get single artist from album id of album clicked on
+
+    const [data, setData] = useState({});
+
     useEffect(() => {
         axios
             .get(`http://localhost:4000/artists/${artistIdState}`)
@@ -45,17 +51,19 @@ export default function Container({ children }) {
                 console.log(response.data);
                 if (response.data.success) {
                     console.log('response.data.data', response.data.data);
-                    console.log(' 1 singleArtist', singleArtist)
-                    setSingleArtist({data: 'idiot'})
-                    console.log(' 2 updated singleArtist', singleArtist)                    
-                    setSingleArtist(response.data.data);
-                    console.log('single artist', singleArtist);
-                    //console.log('singleArtist', singleArtist);
+
+                    setData(response.data.data);
                 } else {
                     toast.error(response.data.data);
                 }
             });
     }, [artistIdState]);
+
+    useEffect(() => {
+        setSingleArtist(data);
+    }, [data]);
+
+    ////////////////////////////
 
     return (
         <MyContext.Provider
