@@ -17,7 +17,7 @@ const ArtistInformationSidebar = ({ artistId }) => {
     console.log('singleartist', singleArtist);
 
     return (
-        <div id='sidebar-artist'>
+        <div id="sidebar-artist">
             <Link to={`/artists/${singleArtist._id}`} state={singleArtist}>
                 <div>
                     <h3>{singleArtist?.artistName}</h3>
@@ -25,24 +25,26 @@ const ArtistInformationSidebar = ({ artistId }) => {
                     <p>{singleArtist?.city}</p>
                 </div>
             </Link>
-            {/* <div id='sidebar-discography'>
+            <div id="sidebar-discography">
                 <ul>
                     Discography
-                    {singleArtist?.albums.map((album) => (
-                        <div key={album._id}>
-                            <Link to={`/albums/${album._id}`} state={album}>
-                                <li>
-                                    <img
-                                        src={album.albumImage}
-                                        alt={album.title}
-                                    />
-                                    <p>{album.title}</p>
-                                </li>
-                            </Link>
-                        </div>
-                    ))}
+                    {singleArtist?.albums.map((album) => {
+                        return (
+                            <div key={album._id}>
+                                <Link to={`/albums/${album._id}`} state={album}>
+                                    <li>
+                                        <img
+                                            src={album.albumImage}
+                                            alt={album.title}
+                                        />
+                                        <p>{album.title}</p>
+                                    </li>
+                                </Link>
+                            </div>
+                        );
+                    })}
                 </ul>
-            </div> */}
+            </div>
         </div>
     );
 };
