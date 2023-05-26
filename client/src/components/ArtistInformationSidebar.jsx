@@ -25,10 +25,10 @@ const ArtistInformationSidebar = ({ artistId }) => {
                     <p>{singleArtist?.city}</p>
                 </div>
             </Link>
-            <div id="sidebar-discography">
+              <div id="sidebar-discography">
                 <ul>
                     Discography
-                    {singleArtist?.albums.map((album) => {
+                    {singleArtist?.albums?.map((album) => {
                         return (
                             <div key={album._id}>
                                 <Link to={`/albums/${album._id}`} state={album}>
@@ -44,8 +44,8 @@ const ArtistInformationSidebar = ({ artistId }) => {
                         );
                     })}
                 </ul>
-            </div>
-        </div>
+            </div>  
+        </div> 
     );
 };
 export default ArtistInformationSidebar;

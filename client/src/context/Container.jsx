@@ -8,7 +8,7 @@ export default function Container({ children }) {
     const [user, setUser] = useState(null);
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
-    const [singleArtist, setSingleArtist] = useState({});
+    const [singleArtist, setSingleArtist] = useState({albums: []});
     const [artistIdState, setArtistIdState] = useState('');
 
     ///get all artists and albums on page load
