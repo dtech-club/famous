@@ -8,13 +8,13 @@ const Artists = () => {
         <div className="artists">
             {artists.map((artist) => {
                 return (
-                    <Link to={`/artists/${artist._id}`} state={artist}>
-                        <div key={artist._id} className="small-artists">
+                    <div key={artist._id} className="small-artists">
+                        <Link to={`/artists/${artist._id}`} state={artist}>
                             <h3>{artist.artistName}</h3>
                             <img src={artist.artistImage} alt="artistimage" />
                             <p>{artist.city}</p>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 );
             })}
         </div>

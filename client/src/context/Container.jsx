@@ -8,6 +8,11 @@ export default function Container({ children }) {
     const [user, setUser] = useState(null);
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
+    const [singleArtist, setSingleArtist] = useState({albums: []});
+    const [artistIdState, setArtistIdState] = useState('');
+
+    ///get all artists and albums on page load
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             axiosWithToken
@@ -24,7 +29,7 @@ export default function Container({ children }) {
         }
         axios.get('http://localhost:4000/artists').then((response) => {
             if (response.data.success) {
-                console.log(response.data.data)
+                console.log(response.data.data);
                 setArtists(response.data.data);
             }
         });
@@ -35,8 +40,46 @@ export default function Container({ children }) {
         });
     }, []);
 
+    // Get single artist from album id of album clicked on
+
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:4000/artists/${artistIdState}`)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.success) {
+                    console.log('response.data.data', response.data.data);
+
+                    setData(response.data.data);
+                } else {
+                    toast.error(response.data.data);
+                }
+            });
+    }, [artistIdState]);
+
+    useEffect(() => {
+        setSingleArtist(data);
+    }, [data]);
+
+    ////////////////////////////
+
     return (
-        <MyContext.Provider value={{ user, setUser,artists, setArtists,albums,setAlbums }}>
+        <MyContext.Provider
+            value={{
+                user,
+                setUser,
+                artists,
+                setArtists,
+                albums,
+                setAlbums,
+                singleArtist,
+                setSingleArtist,
+                artistIdState,
+                setArtistIdState,
+            }}
+        >
             <Toaster />
             {children}
         </MyContext.Provider>
