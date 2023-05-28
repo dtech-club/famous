@@ -15,21 +15,25 @@ export default function ArtistPage() {
       <section className="image-section">
         <ArtistImage url={state?.artistImage} />
       </section>
-      <section>
+      <section className="name-section">
         <ArtistName name={state?.artistName} />
       </section>
       <section className="biography-section">
         <ArtistBiography biography={state?.biography} />
       </section>
-      <section className="name-section">
-        <Name />
-      </section>
+
       <section className="personal-section">
         <ArtistPersonalInfo
           city={state?.city}
           country={state?.state}
           genre={state?.genre}
         />
+        <p>
+          Here is the info Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Inventore dolor earum voluptatem, nihil ullam hic, delectus
+          provident libero rerum officiis assumenda quaerat non possimus facere,
+          accusantium dignissimos? Totam, provident eaque?
+        </p>
       </section>
       <section className="discography-section">
         <ArtistDiscography discography={state?.albums} artist={state} />
