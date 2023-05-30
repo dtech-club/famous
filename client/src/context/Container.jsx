@@ -29,12 +29,13 @@ export default function Container({ children }) {
         }
         axios.get('http://localhost:4000/artists').then((response) => {
             if (response.data.success) {
-                console.log(response.data.data);
+                console.log('artist data', response.data.data);
                 setArtists(response.data.data);
             }
         });
         axios.get('http://localhost:4000/music/albums').then((response) => {
             if (response.data.success) {
+                console.log(response.data.data,'music albums')
                 setAlbums(response.data.data);
             }
         });

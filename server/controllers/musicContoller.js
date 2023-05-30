@@ -1,5 +1,4 @@
 import AlbumCollection from '../models/albumModel.js';
-
 import TrackCollection from '../models/trackModel.js';
 
 //get all albums (get)

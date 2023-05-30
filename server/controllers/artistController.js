@@ -11,7 +11,7 @@ import AlbumImageCollection from '../models/albumImageModel.js';
 
 export const getAllArtists = async (req, res) => {
     try {
-        const artists = await ArtistCollection.find().populate('albums');
+        const artists = await ArtistCollection.find().populate({path: 'albums', populate: {path: 'tracks', model: 'Track'}});
         res.json({ success: true, data: artists });
     } catch (err) {
         res.json({ success: false, message: err.message });
