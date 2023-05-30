@@ -1,11 +1,12 @@
 const AlbumTrackList = ({ tracklist }) => {
+    console.log('tracklist', tracklist)
     return (
         <div>
             <ul>
-                {tracklist?.map((track, index) => {
+                {tracklist?.map((track) => {
                     return (
-                        <li key={index}>
-                            <span>{track?.name}</span>
+                        <li key={track?._id}>
+                            <span>{track?.trackName}</span>
                             <span>{track?.duration}</span>
                         </li>
                     );
