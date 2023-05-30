@@ -3,7 +3,7 @@ import { Howl, Howler } from 'howler';
 const Track = ({track}) => {
     //Player
     // const sourceAudio =
-    //     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
+    //      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
     const sourceAudio = track.trackFile;
     console.log('sourceAudio', sourceAudio);
     const sound = new Howl({

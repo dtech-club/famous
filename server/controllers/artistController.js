@@ -107,7 +107,7 @@ export const addTrackToAlbum = async (req, res) => {
 
         if (req.files) {
             const trackFile = new TrackFileCollection({
-                filename: new Date().getTime() + '_' + req.files.trackFile.name,
+                filename: new Date().getTime() + '_' + req.files.trackFile.name.split(' ').join('_'),
                 data: req.files.trackFile.data,
                 userId: track._id
             });

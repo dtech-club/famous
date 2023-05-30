@@ -10,6 +10,7 @@ import musicRoute from './routes/musicRoute.js';
 import userRoute from './routes/userRoute.js';
 import ArtistImageCollection from './models/artistImageModel.js';
 import AlbumImageCollection from './models/albumImageModel.js';
+import TrackFileCollection from './models/trackFileModel.js';
 
 dotenv.config();
 
@@ -50,8 +51,11 @@ app.get('/albumimages/:filename', async (req, res) => {
 })
 
 /// SERVING THE AUDIO FILE
-app.get('/tracks/:filename', async (req, res) => {
+app.get('/trackfiles/:filename', async (req, res) => {
+    console.log('req.params.filename', req.params.filename)
+
     const trackFile = await TrackFileCollection.findOne({ filename: req.params.filename });
+    //console.log('trackfile',trackFile)
     const readStream = stream.Readable.from(trackFile.data)
     readStream.pipe(res);
 })
