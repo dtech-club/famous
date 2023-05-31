@@ -1,14 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { MyContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateArtist() {
     const navigate = useNavigate();
     const { createArtist, setCreateArtist } = useContext(MyContext);
-    const [image, setImage] = useState('');
-    const [editedImage, setEditedImage] = useState(null);
     const [err, setErr] = useState({
         artistName: '',
         artistImage: '',
@@ -27,7 +24,7 @@ export default function CreateArtist() {
     const CreateArtist = (e) => {
         e.preventDefault();
 
-        const data = new FormData(e.target);
+        const formData = new FormData(e.target);
 
         // const artist = {
         //     artistName: e.target.artistName.value,
@@ -39,16 +36,19 @@ export default function CreateArtist() {
         //     albums: []
         // };
 
-        axios.post('http://localhost:4000/artists', data).then((response) => {
-            if (response.data.success) {
-                setCreateArtist(response.data.data);
+        axios
+            .post('http://localhost:4000/artists', formData)
+            .then((response) => {
+                if (response.data.success) {
+                    console.log(response.data.message);
+                    setCreateArtist(response.data.data);
 
-                navigate(`/artists/${response.data.data._id}`);
-            } else {
-                console.log(response.data.message);
-                setErr({ ...err, ...response.data.message[0] });
-            }
-        });
+                    navigate(`/artists/${response.data.data._id}`);
+                } else {
+                    console.log(response.data.message);
+                    setErr({ ...err, ...response.data.message[0] });
+                }
+            });
     };
 
     return (

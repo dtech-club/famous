@@ -9,8 +9,8 @@ import ArtistPage from './components/pages/ArtistPage.jsx';
 import AlbumPage from './components/pages/AlbumPage.jsx';
 import Login from './components/Login.jsx';
 import CreateArtistPage from './components/pages/CreateArtistPage.jsx';
-import CreateAlbum from './components/content_managment_system/CreateAlbum.jsx';
-import CreateTrack from './components/content_managment_system/CreateTrack.jsx';
+//import CreateAlbum from './components/content_managment_system/CreateAlbum.jsx';
+//import CreateTrack from './components/content_managment_system/CreateTrack.jsx';
 
 
 
