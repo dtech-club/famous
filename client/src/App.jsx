@@ -8,7 +8,7 @@ import Albums from './components/Albums.jsx';
 import ArtistPage from './components/pages/ArtistPage.jsx';
 import AlbumPage from './components/pages/AlbumPage.jsx';
 import Login from './components/Login.jsx';
-import CreateArtist from './components/content_managment_system/CreateArtist.jsx';
+import CreateArtistPage from './components/pages/CreateArtistPage.jsx';
 import CreateAlbum from './components/content_managment_system/CreateAlbum.jsx';
 import CreateTrack from './components/content_managment_system/CreateTrack.jsx';
 
@@ -27,9 +27,9 @@ function App() {
                     <Route path="/albums/:id" element={<AlbumPage />} />
                     <Route path="/login" element={<Login />} />
                     
-                    <Route path="/createartist" element={<CreateArtist />} />
-                    <Route path="/createalbum" element={<CreateAlbum />} />
-                    <Route path="/createtrack" element={<CreateTrack />} />
+                    <Route path="/createartist" element={<CreateArtistPage />} />
+                    {/* <Route path="/createalbum" element={<CreateAlbum />} />
+                    <Route path="/createtrack" element={<CreateTrack />} /> */}
                 </Routes>
             </div>
         </HashRouter>

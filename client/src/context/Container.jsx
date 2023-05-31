@@ -10,6 +10,7 @@ export default function Container({ children }) {
     const [albums, setAlbums] = useState([]);
     const [singleArtist, setSingleArtist] = useState({albums: []});
     const [artistIdState, setArtistIdState] = useState('');
+    const [createArtist, setCreateArtist] = useState({albums:[]})
 
     ///get all artists and albums on page load
 
@@ -79,6 +80,9 @@ export default function Container({ children }) {
                 setSingleArtist,
                 artistIdState,
                 setArtistIdState,
+                createArtist,
+                setCreateArtist
+                
             }}
         >
             <Toaster />

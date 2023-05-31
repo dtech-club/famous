@@ -11,7 +11,7 @@ export default function Login() {
     e.preventDefault();
     axios
       .post(
-        "/users/login",
+        "http://localhost:4000/users/login",
         JSON.stringify({
           email: e.target.email.value,
           password: e.target.password.value,

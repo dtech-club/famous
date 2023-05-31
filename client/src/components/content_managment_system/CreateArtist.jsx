@@ -1,7 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { MyContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateArtist() {
+    const navigate = useNavigate();
+    const { createArtist, setCreateArtist } = useContext(MyContext);
     const [image, setImage] = useState('');
     const [editedImage, setEditedImage] = useState(null);
     const [err, setErr] = useState({
@@ -9,45 +14,49 @@ export default function CreateArtist() {
         artistImage: '',
         description: '',
     });
+
+    useEffect(() => {
+        setCreateArtist({ albums: [] });
+        console.log('artist before creation', createArtist);
+    }, []);
+
+    useEffect(() => {
+        console.log('createArtist:', createArtist);
+    }, [createArtist]);
+
     const CreateArtist = (e) => {
         e.preventDefault();
-        const artist = {
-            artistName: e.target.artistName.value,
-            artistImage: e.target.artistImage.value,
-            city: e.target.city.value,
-            state: e.target.state.value,
-            biography: e.target.biography.value,
-            genres: e.target.genres.value,
-            albums: e.target.albums.value,
-        };
-        axios
-            .post('/artists', JSON.stringify(artist), {
-                headers: { 'Content-Type': 'application/json' },
-            })
-            .then((response) => {
-                if (response.data.success) {
-                    // navigate('/album');
-                } else {
-                    console.log(response.data.message);
-                    setErr(...err, ...response.data.message[0]);
-                }
-            });
+
+        const data = new FormData(e.target);
+
+        // const artist = {
+        //     artistName: e.target.artistName.value,
+        //     artistImage: e.target.artistImage.files,
+        //     city: e.target.city.value,
+        //     state: e.target.state.value,
+        //     biography: e.target.biography.value,
+        //     genres: e.target.genres.value,
+        //     albums: []
+        // };
+
+        axios.post('http://localhost:4000/artists', data).then((response) => {
+            if (response.data.success) {
+                setCreateArtist(response.data.data);
+
+                navigate(`/artists/${response.data.data._id}`);
+            } else {
+                console.log(response.data.message);
+                setErr({ ...err, ...response.data.message[0] });
+            }
+        });
     };
 
-    function handleApi() {
-        const formData = new FormData();
-        formData.append('image', editedImage || image);
-        axios.post('url', formData).then((res) => console.log(res));
-    }
-
-    function handleEdit() {
-        setEditedImage(editedImage);
-    }
     return (
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
                 <h1 className="text-3xl font-bold mb-5">Create Artist</h1>
+
                 <form onSubmit={CreateArtist}>
                     <div className="mb-4">
                         <label
@@ -77,14 +86,13 @@ export default function CreateArtist() {
                             Artist Image
                         </label>
                         <input
-                            type="file "
+                            type="file"
                             name="artistImage"
                             id="artistImage"
                             placeholder="Enter artist image"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            //className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        <button onClick={handleEdit}>Edit photo</button>
-                        <button onClick={handleApi}>Upload photo</button>
+
                         {err.artistImage && (
                             <p className="text-red-500 text-xs italic">
                                 {err.artistImage}
