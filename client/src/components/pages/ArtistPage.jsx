@@ -8,6 +8,7 @@ import './artist-page.css';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { MyContext } from '../../context/context.js';
+import ModifyAlbum from '../content_managment_system/ModifyAlbum.jsx';
 
 <<<<<<< HEAD
       <section className="personal-section">
@@ -28,14 +29,15 @@ import { MyContext } from '../../context/context.js';
   );
 =======
 export default function ArtistPage() {
-  const {createArtist, singleArtist, setSingleArtist} = useContext(MyContext)
-  useEffect(()=>{
-    setSingleArtist(createArtist)
-  }, [createArtist])
+    const { createArtist, singleArtist, setSingleArtist } =
+        useContext(MyContext);
+    useEffect(() => {
+        setSingleArtist(createArtist);
+    }, [createArtist]);
 
     const { state } = useLocation();
 
-  const data = state? state : createArtist
+    const data = state ? state : createArtist;
 
     return (
         <main className="grid-section">
@@ -43,7 +45,7 @@ export default function ArtistPage() {
                 <ArtistImage url={data?.artistImage} />
             </section>
             <section className="name-section">
-                <ArtistName name={data?.artistName}  />
+                <ArtistName name={data?.artistName} />
             </section>
             <section className="biography-section">
                 <ArtistBiography biography={data?.biography} />
@@ -65,6 +67,9 @@ export default function ArtistPage() {
             </section>
             <section className="discography-section">
                 <ArtistDiscography discography={data?.albums} artist={data} />
+            </section>
+            <section>
+                <ModifyAlbum artist={data}/>
             </section>
         </main>
     );
