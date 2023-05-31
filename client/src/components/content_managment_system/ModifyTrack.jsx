@@ -1,33 +1,42 @@
 import axios from 'axios';
-import React, { useState } from 'react';    
+import React, { useState } from 'react';
 
-export default function CreateTrack() {
-
-    const [err, setErr] = useState({ trackName: '', trackNumber: '', trackLength: '', trackImage: '', trackFile: '' });
+export default function CreateTrack({ state }) {
+    const [err, setErr] = useState({
+        trackName: '',
+        trackNumber: '',
+        trackLength: '',
+        trackImage: '',
+        trackFile: '',
+    });
     const ModifyTrack = (e) => {
-        const track = {
-            trackName: e.target.trackName.value,
-            artistName: e.target.artistName.value,
-            albumName: e.target.albumName.value,
-            releaseDate: e.target.releaseDate.value,
-            genre: e.target.genre.value,
-            trackFile: e.target.trackFile.value,
-            trackLength: e.target.trackLength.value,
-        };
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        // const track = {
+        //     trackName: e.target.trackName.value,
+        //     artistName: e.target.artistName.value,
+        //     albumName: e.target.albumName.value,
+        //     releaseDate: e.target.releaseDate.value,
+        //     genre: e.target.genre.value,
+        //     trackFile: e.target.trackFile.value,
+        //     trackLength: e.target.trackLength.value,
+        // };
         axios
-            .post('/tracks', JSON.stringify(track), {
-                headers: { 'Content-Type': 'application/json' },
-            })
+            .patch(
+                `http://localhost:4000/artists/${state.artistId}/album/${state._id}/track`,
+                formData
+            )
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.message);
                 } else {
                     console.log(response.data.message);
-                    setErr(...err, ...response.data.message[0]);
+                    setErr({...err, ...response.data.message[0]});
                 }
-            }
-            );
-    }
+            });
+    };
 
     return (
         <div>
@@ -35,6 +44,38 @@ export default function CreateTrack() {
                 <div className="w-1/3">
                     <h1 className="text-3xl font-bold mb-5">Create Track</h1>
                     <form onSubmit={ModifyTrack}>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="artistId"
+                                className="appearance-none"
+                            >
+                                ArtistId
+                            </label>
+                            <input
+                                type="text"
+                                name="artistId"
+                                value={state.artistId}
+                                id="artistId"
+                                className="appearance-none"
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                htmlFor="albumId"
+                                className="appearance-none"
+                            >
+                                AlbumId
+                            </label>
+                            <input
+                                type="text"
+                                name="albumId"
+                                value={state._id}
+                                id="albumId"
+                                className="appearance-none"
+                            />
+                        </div>
+
                         <div className="mb-4">
                             <label
                                 htmlFor="trackName"
@@ -65,6 +106,7 @@ export default function CreateTrack() {
                             <input
                                 type="text"
                                 name="artistName"
+                                value={state?.artistName}
                                 id="artistName"
                                 placeholder="Enter artist name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -85,6 +127,7 @@ export default function CreateTrack() {
                             <input
                                 type="text"
                                 name="albumName"
+                                value={state?.albumName}
                                 id="albumName"
                                 placeholder="Enter album name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -103,8 +146,9 @@ export default function CreateTrack() {
                                 Release Date
                             </label>
                             <input
-                                type="date"
+                                type="text"
                                 name="releaseDate"
+                                value={state?.releaseDate}
                                 id="releaseDate"
                                 placeholder="Enter release date"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -125,6 +169,7 @@ export default function CreateTrack() {
                             <input
                                 type="text"
                                 name="genre"
+                                value={state?.genre}
                                 id="genre"
                                 placeholder="Enter genre"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -143,11 +188,11 @@ export default function CreateTrack() {
                                 Track File
                             </label>
                             <input
-                                type="text"
+                                type="file"
                                 name="trackFile"
                                 id="trackFile"
                                 placeholder="Enter track file"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                               // className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                             {err.trackFile && (
                                 <p className="text-red-500 text-xs italic">
@@ -155,26 +200,7 @@ export default function CreateTrack() {
                                 </p>
                             )}
                         </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="trackLength"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Track Length
-                            </label>
-                            <input
-                                type="text"
-                                name="trackLength"
-                                id="trackLength"
-                                placeholder="Enter track length"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            />
-                            {err.trackLength && (
-                                <p className="text-red-500 text-xs italic">
-                                    {err.trackLength}
-                                </p>
-                            )}
-                        </div>
+                        
                         <div>
                             <button
                                 type="submit"

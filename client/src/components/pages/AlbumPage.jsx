@@ -5,6 +5,7 @@ import AlbumName from "../page_components/AlbumName.jsx";
 import AlbumImage from "../page_components/AlbumImage.jsx";
 import AlbumTrackList from "../page_components/AlbumTrackList.jsx";
 import ArtistInformationSidebar from "../ArtistInformationSidebar.jsx";
+import ModifyTrack from "../content_managment_system/ModifyTrack.jsx";
 
 const AlbumPage = () => {
   const { state } = useLocation();
@@ -16,6 +17,9 @@ const AlbumPage = () => {
       </section>
       <section>
         <AlbumName name={state?.albumName} />
+      </section>
+      <section>
+        <ModifyTrack state={state} />
       </section>
       <section>
         <AlbumTrackList tracklist={state?.tracks} />
