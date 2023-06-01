@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header>
+    <header class = "">
       <img
         src="../src/images/famous-banner.png"
         alt="phooofyoutube"

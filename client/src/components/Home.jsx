@@ -11,7 +11,7 @@ const Home = () => {
             <Header />
             
 
-            <main>
+            <main class = "w-full">
                 <section>
                     <ApiSection />
                 </section>
