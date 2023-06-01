@@ -1,14 +1,12 @@
-import ArtistImage from '../page_components/ArtistImage.jsx';
-import ArtistName from '../page_components/ArtistName.jsx';
-import ArtistBiography from '../page_components/ArtistBiography.jsx';
 import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
-import ArtistPersonalInfo from '../page_components/ArtistPersonalInfo.jsx';
-import { useLocation } from 'react-router-dom';
-import './artist-page.css';
-import { useEffect } from 'react';
-import { useContext } from 'react';
-import { MyContext } from '../../context/context.js';
 import ModifyAlbum from '../content_managment_system/ModifyAlbum.jsx';
+import PatchArtist from '../content_managment_system/PatchArtist.jsx';
+import DeleteArtist from '../content_managment_system/DeleteArtist.jsx';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useContext, useState } from 'react';
+import { MyContext } from '../../context/context.js';
+import './artist-page.css';
+import ArtistAllInfo from '../page_components/ArtistAllInfo.jsx';
 
 <<<<<<< HEAD
       <section className="personal-section">
@@ -29,6 +27,13 @@ import ModifyAlbum from '../content_managment_system/ModifyAlbum.jsx';
   );
 =======
 export default function ArtistPage() {
+    const [activeArtistInfo, setActiveArtistInfo] =
+        useState('artist-information');
+
+    const [activeDiscographySection, setActiveDiscographySection] = useState(
+        'discography-section'
+    );
+
     const { createArtist, singleArtist, setSingleArtist } =
         useContext(MyContext);
     useEffect(() => {
@@ -41,35 +46,58 @@ export default function ArtistPage() {
 
     return (
         <main className="grid-section">
-            <section className="image-section">
-                <ArtistImage url={data?.artistImage} />
-            </section>
-            <section className="name-section">
-                <ArtistName name={data?.artistName} />
-            </section>
-            <section className="biography-section">
-                <ArtistBiography biography={data?.biography} />
+            <section>
+                <DeleteArtist artist={data} />
+                <div id="button-to-select-cards">
+                    <button
+                        onClick={() =>
+                            setActiveArtistInfo('artist-information')
+                        }
+                    >
+                        artist information
+                    </button>
+                    <button onClick={() => setActiveArtistInfo('edit-artist')}>
+                        edit artist
+                    </button>
+                </div>
+
+                <div id="artist-container-contintional-rendering">
+                    {activeArtistInfo === 'artist-information' && (
+                        <ArtistAllInfo data={data} />
+                    )}
+
+                    {activeArtistInfo === 'edit-artist' && (
+                        <PatchArtist artist={data} />
+                    )}
+                </div>
             </section>
 
-            <section className="personal-section">
-                <ArtistPersonalInfo
-                    city={data?.city}
-                    country={data?.state}
-                    genre={data?.genre}
-                />
-                <p>
-                    Here is the info Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Inventore dolor earum voluptatem, nihil
-                    ullam hic, delectus provident libero rerum officiis
-                    assumenda quaerat non possimus facere, accusantium
-                    dignissimos? Totam, provident eaque?
-                </p>
-            </section>
-            <section className="discography-section">
-                <ArtistDiscography discography={data?.albums} artist={data} />
-            </section>
             <section>
-                <ModifyAlbum artist={data}/>
+                <div id="buttons-to-add-albums">
+                    <button
+                        onClick={() =>
+                            setActiveDiscographySection('discography-section')
+                        }
+                    >
+                        Discography
+                    </button>
+                    <button
+                        onClick={() => setActiveDiscographySection('add-album')}
+                    >
+                        Add Album
+                    </button>
+                </div>
+
+                {activeDiscographySection === 'discography-section' && (
+                    <ArtistDiscography
+                        discography={data?.albums}
+                        artist={data}
+                    />
+                )}
+
+                {activeDiscographySection === 'add-album' && (
+                    <ModifyAlbum artist={data} />
+                )}
             </section>
         </main>
     );
