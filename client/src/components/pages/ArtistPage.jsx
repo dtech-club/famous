@@ -8,24 +8,6 @@ import { MyContext } from '../../context/context.js';
 import './artist-page.css';
 import ArtistAllInfo from '../page_components/ArtistAllInfo.jsx';
 
-<<<<<<< HEAD
-      <section className="personal-section">
-        <ArtistPersonalInfo
-          city={state?.city}
-          country={state?.state}
-          genre={state?.genre}
-        />
-        <p>
-          Here is the info Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Inventore dolor earum voluptatem, nihil ullam hic, delectus
-        </p>
-      </section>
-      <section className="discography-section">
-        <ArtistDiscography discography={state?.albums} artist={state} />
-      </section>
-    </main>
-  );
-=======
 export default function ArtistPage() {
     const [activeArtistInfo, setActiveArtistInfo] =
         useState('artist-information');
@@ -101,5 +83,4 @@ export default function ArtistPage() {
             </section>
         </main>
     );
->>>>>>> cc349d1105c2626879294a550930d98237c939d3
 }
