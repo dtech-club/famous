@@ -6,12 +6,12 @@ import TrackFileCollection from '../models/trackFileModel.js';
 import ArtistImageCollection from '../models/artistImageModel.js';
 import AlbumImageCollection from '../models/albumImageModel.js';
 
-
-
-
 export const getAllArtists = async (req, res) => {
     try {
-        const artists = await ArtistCollection.find().populate({path: 'albums', populate: {path: 'tracks', model: 'Track'}});
+        const artists = await ArtistCollection.find().populate({
+            path: 'albums',
+            populate: { path: 'tracks', model: 'Track' },
+        });
         res.json({ success: true, data: artists });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -22,14 +22,14 @@ export const createArtist = async (req, res) => {
         const artist = new ArtistCollection(req.body);
         if (req.files) {
             const artistImage = new ArtistImageCollection({
-                filename: new Date().getTime() + '_' + req.files.artistImage.name,
+                filename:
+                    new Date().getTime() + '_' + req.files.artistImage.name,
                 data: req.files.artistImage.data,
-                userId: artist._id
+                userId: artist._id,
             });
             await artistImage.save();
             artist.artistImage = `http://localhost:4000/artistimages/${artistImage.filename}`;
         }
-        
 
         await artist.save();
         res.json({ success: true, data: artist });
@@ -73,7 +73,7 @@ export const deleteArtist = async (req, res) => {
     } catch {
         res.json({ success: false, message: err.message });
     }
-}
+};
 
 export const addAlbumToArtist = async (req, res) => {
     try {
@@ -82,9 +82,10 @@ export const addAlbumToArtist = async (req, res) => {
         const album = new AlbumCollection(req.body);
         if (req.files) {
             const albumImage = new AlbumImageCollection({
-                filename: new Date().getTime() + '_' + req.files.albumImage.name,
+                filename:
+                    new Date().getTime() + '_' + req.files.albumImage.name,
                 data: req.files.albumImage.data,
-                userId: album._id
+                userId: album._id,
             });
             await albumImage.save();
             album.albumImage = `http://localhost:4000/albumimages/${albumImage.filename}`;
@@ -96,7 +97,7 @@ export const addAlbumToArtist = async (req, res) => {
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
-}
+};
 
 export const addTrackToAlbum = async (req, res) => {
     try {
@@ -107,26 +108,27 @@ export const addTrackToAlbum = async (req, res) => {
 
         if (req.files) {
             const trackFile = new TrackFileCollection({
-                filename: new Date().getTime() + '_' + req.files.trackFile.name.split(' ').join('_'),
+                filename:
+                    new Date().getTime() +
+                    '_' +
+                    req.files.trackFile.name.split(' ').join('_'),
                 data: req.files.trackFile.data,
-                userId: track._id
+                userId: track._id,
             });
             await trackFile.save();
             track.trackFile = `http://localhost:4000/trackfiles/${trackFile.filename}`;
         }
 
-
-
         //artist.albums.push(album);
         album.tracks.push(track);
         await artist.save();
         await album.save();
-        await track.save()
+        await track.save();
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
-}
+};
 
 export const deleteAlbumFromArtist = async (req, res) => {
     try {
@@ -135,16 +137,16 @@ export const deleteAlbumFromArtist = async (req, res) => {
         const album = await AlbumCollection.findById(albumId);
         artist.albums.pull(album);
         await artist.save();
-        await album.remove();
+        //await artist.albums.remove();
+        await AlbumCollection.findByIdAndRemove(albumId);
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
-
 };
 
 export const deleteTrackFromAlbum = async (req, res) => {
-    try{
+    try {
         const { id, albumId, trackId } = req.params;
         const artist = await ArtistCollection.findById(id);
         const album = await AlbumCollection.findById(albumId);
@@ -152,11 +154,12 @@ export const deleteTrackFromAlbum = async (req, res) => {
         album.tracks.pull(track);
         await artist.save();
         await album.save();
-        await track.remove();
+        await TrackCollection.findByIdAndRemove(trackId);
+        
+
+        
         res.json({ success: true, data: artist });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
 };
-
-
