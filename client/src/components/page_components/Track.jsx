@@ -1,9 +1,9 @@
 import { Howl, Howler } from 'howler';
+import DeleteTrack from '../content_managment_system/DeleteTrack.jsx';
 
 const Track = ({track}) => {
     //Player
-    // const sourceAudio =
-    //      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
+   
     const sourceAudio = track.trackFile;
     console.log('sourceAudio', sourceAudio);
     const sound = new Howl({
@@ -18,6 +18,7 @@ const Track = ({track}) => {
             <div onClick={() => sound.play()}>PLAY</div>
             <div onClick={() => sound.pause()}>PAUSE</div>
             <div onClick={() => sound.stop()}>STOP</div>
+            <DeleteTrack track={track} />
         </li>
     );
 };
