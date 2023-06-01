@@ -24,6 +24,9 @@ function App() {
                     <Route path="/albums/:id" element={<AlbumPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/createartist" element={<CreateArtist />} />
+
+
+
                     {/* route for page not found */}
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
