@@ -3,38 +3,41 @@ import DeleteTrack from "../content_managment_system/DeleteTrack.jsx";
 import { useState } from "react";
 
 const Track = ({ track }) => {
-  //Player
   const sourceAudio = track.trackFile;
-  const [currentSound, setCurrentSound] = useState(null);
+  const [sound, setSound] = useState(null);
 
   const playSound = () => {
-    if (currentSound) {
-      currentSound.stop();
+    if (sound) {
+      sound.stop();
     }
 
-    const sound = new Howl({
+    if (Howler._howls.length > 0) {
+      Howler.stop();
+    }
+
+    const newSound = new Howl({
       src: [sourceAudio],
       html5: true,
       format: ["mp3"],
       onend: () => {
-        setCurrentSound(null);
+        setSound(null);
       },
     });
 
-    setCurrentSound(sound);
-    sound.play();
+    setSound(newSound);
+    newSound.play();
   };
 
   const pauseSound = () => {
-    if (currentSound) {
-      currentSound.pause();
+    if (sound) {
+      sound.pause();
     }
   };
 
   const stopSound = () => {
-    if (currentSound) {
-      currentSound.stop();
-      setCurrentSound(null);
+    if (sound) {
+      sound.stop();
+      setSound(null);
     }
   };
 
