@@ -1,18 +1,21 @@
-import ArtistImage from '../page_components/ArtistImage.jsx';
-import ArtistName from '../page_components/ArtistName.jsx';
-import ArtistBiography from '../page_components/ArtistBiography.jsx';
 import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
-import ArtistPersonalInfo from '../page_components/ArtistPersonalInfo.jsx';
 import ModifyAlbum from '../content_managment_system/ModifyAlbum.jsx';
 import PatchArtist from '../content_managment_system/PatchArtist.jsx';
 import DeleteArtist from '../content_managment_system/DeleteArtist.jsx';
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { MyContext } from '../../context/context.js';
 import './artist-page.css';
+import ArtistAllInfo from '../page_components/ArtistAllInfo.jsx';
 
 export default function ArtistPage() {
+    const [activeArtistInfo, setActiveArtistInfo] =
+        useState('artist-information');
+
+    const [activeDiscographySection, setActiveDiscographySection] = useState(
+        'discography-section'
+    );
+
     const { createArtist, singleArtist, setSingleArtist } =
         useContext(MyContext);
     useEffect(() => {
@@ -25,40 +28,54 @@ export default function ArtistPage() {
 
     return (
         <main className="grid-section">
-            <section id='artist-information'>
-                <section className="image-section">
-                    <ArtistImage url={data?.artistImage} />
-                </section>
-                <section className="name-section">
-                    <ArtistName name={data?.artistName} />
-                </section>
-                <section className="biography-section">
-                    <ArtistBiography biography={data?.biography} />
-                </section>
-                <section className="personal-section">
-                    <ArtistPersonalInfo
-                        city={data?.city}
-                        country={data?.state}
-                        genre={data?.genre}
+            <section>
+                <DeleteArtist artist={data} />
+                <div id="button-to-select-cards">
+                    <button
+                        onClick={() =>
+                            setActiveArtistInfo('artist-information')
+                        }
+                    >
+                        artist information
+                    </button>
+                    <button onClick={() => setActiveArtistInfo('edit-artist')}>
+                        edit artist
+                    </button>
+                </div>
+
+                <div id="artist-container-contintional-rendering">
+                    {activeArtistInfo === 'artist-information' && (
+                        <ArtistAllInfo data={data} />
+                    )}
+
+                    {activeArtistInfo === 'edit-artist' && (
+                        <PatchArtist artist={data} />
+                    )}
+                </div>
+            </section>
+
+            <section>
+                <div id="buttons-to-add-albums">
+                    <button
+                        onClick={() =>
+                            setActiveDiscographySection('discography-section')
+                        }
+                    ></button>
+                    <button
+                        onClick={() => setActiveDiscographySection('add-album')}
+                    ></button>
+                </div>
+
+                {activeDiscographySection === 'discography-section' && (
+                    <ArtistDiscography
+                        discography={data?.albums}
+                        artist={data}
                     />
-                    <p>
-                        Here is the info Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Inventore dolor earum voluptatem, nihil
-                        ullam hic, delectus provident libero rerum officiis
-                        assumenda quaerat non possimus facere, accusantium
-                        dignissimos? Totam, provident eaque?
-                    </p>
-                </section>
-            </section>
-            <section id='patch-artist'>
-        <PatchArtist artist={data}/>
-        <DeleteArtist artist={data}/>
-            </section>
-            <section id='artist-discography' className="discography-section">
-                <ArtistDiscography discography={data?.albums} artist={data} />
-            </section>
-            <section id='add-album-to-discography'>
-                <ModifyAlbum artist={data}/>
+                )}
+
+                {activeDiscographySection === 'add-album' && (
+                    <ModifyAlbum artist={data} />
+                )}
             </section>
         </main>
     );
