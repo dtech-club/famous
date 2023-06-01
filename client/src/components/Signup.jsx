@@ -18,7 +18,7 @@ export default function Register() {
             })
             .then((response) => {
                 if (response.data.success) {
-                    navigate('/login');
+                    navigate('http://localhost:4000/users/login');
                 } else {
                     console.log(response.data.message);
                     setErr(...err, ...response.data.message[0]);
