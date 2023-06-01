@@ -1,12 +1,12 @@
-import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
-import ModifyAlbum from '../content_managment_system/ModifyAlbum.jsx';
-import PatchArtist from '../content_managment_system/PatchArtist.jsx';
-import DeleteArtist from '../content_managment_system/DeleteArtist.jsx';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useContext, useState } from 'react';
-import { MyContext } from '../../context/context.js';
-import './artist-page.css';
-import ArtistAllInfo from '../page_components/ArtistAllInfo.jsx';
+import ArtistDiscography from "../page_components/ArtistDiscography.jsx";
+import ModifyAlbum from "../content_managment_system/ModifyAlbum.jsx";
+import PatchArtist from "../content_managment_system/PatchArtist.jsx";
+import DeleteArtist from "../content_managment_system/DeleteArtist.jsx";
+import { useLocation } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { MyContext } from "../../context/context.js";
+import "./artist-page.css";
+import ArtistAllInfo from "../page_components/ArtistAllInfo.jsx";
 
 export default function ArtistPage() {
     const [activeArtistInfo, setActiveArtistInfo] =
