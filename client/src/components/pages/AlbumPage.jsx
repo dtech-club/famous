@@ -25,10 +25,12 @@ const AlbumPage = () => {
             </section>
             <section>
                 <div id="buttons-condition-adding-track">
-                    <button
-                        onClick={() => setActive('album-tracklist')}
-                    ></button>
-                    <button onClick={() => setActive('add-track')}></button>
+                    <button onClick={() => setActive('album-tracklist')}>
+                        Album tracklist
+                    </button>
+                    <button onClick={() => setActive('add-track')}>
+                        Add track
+                    </button>
                 </div>
                 <div id="conditional-renedring-to-add-track">
                     {active === 'album-tracklist' && (

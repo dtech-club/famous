@@ -60,10 +60,14 @@ export default function ArtistPage() {
                         onClick={() =>
                             setActiveDiscographySection('discography-section')
                         }
-                    ></button>
+                    >
+                        Discography
+                    </button>
                     <button
                         onClick={() => setActiveDiscographySection('add-album')}
-                    ></button>
+                    >
+                        Add Album
+                    </button>
                 </div>
 
                 {activeDiscographySection === 'discography-section' && (

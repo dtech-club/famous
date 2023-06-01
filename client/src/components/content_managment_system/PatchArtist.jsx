@@ -4,6 +4,12 @@ import { MyContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 
 const PatchArtist = ({artist}) => {
+    const [err, setErr] = useState({
+        artistName: '',
+        artistImage: '',
+        description: '',
+    });
+
     const patchArtist = (e) => {
         const formData = new FormData(e.target);
 
@@ -23,7 +29,7 @@ const PatchArtist = ({artist}) => {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Create Artist</h1>
+                <h1 className="text-3xl font-bold mb-5">Edit Artist</h1>
 
                 <form onSubmit={patchArtist}>
                     <div className="mb-4">

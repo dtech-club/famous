@@ -1,7 +1,8 @@
-import ArtistImage from './page_components/ArtistImage.jsx';
-import ArtistName from './page_components/ArtistName.jsx';
-import ArtistBiography from './page_components/ArtistBiography.jsx';
-import ArtistPersonalInfo from './page_components/ArtistPersonalInfo.jsx';
+import ArtistImage from "../page_components/ArtistImage";
+import ArtistName from "../page_components/ArtistName";
+import ArtistBiography from "../page_components/ArtistBiography";
+import ArtistPersonalInfo from "../page_components/ArtistPersonalInfo";
+
 
 
 const ArtistAllInfo = ({data}) => {
