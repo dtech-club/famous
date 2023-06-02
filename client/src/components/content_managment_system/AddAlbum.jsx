@@ -1,23 +1,22 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
-import { MyContext } from '../../context/context';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../../context/context.js';
 
-const PatchArtist = ({artist}) => {
-    const [err, setErr] = useState({
-        artistName: '',
-        artistImage: '',
-        description: '',
-    });
+const AddAlbum = ({ artist }) => {
+    const navigate = useNavigate();
+    const [err, setErr] = useState({ userName: '', email: '', password: '' });
+    const [artistName, setArtistName] = useState(artist.artistName);
 
-    const patchArtist = (e) => {
+    const postAlbum = (e) => {
+        e.preventDefault();
         const formData = new FormData(e.target);
-
         axios
-            .patch(`http://localhost:4000/artists/${artist._id}`, formData)
+            .post(`http://localhost:4000/artists/${artist._id}/album`, formData)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.message);
+                    console.log(response.data.data);
+                    //navigate(`/album/${response.data.data._id}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -29,9 +28,42 @@ const PatchArtist = ({artist}) => {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Edit Artist</h1>
+                <h1 className="text-3xl font-bold mb-5">Create Album</h1>
 
-                <form onSubmit={patchArtist}>
+                <form onSubmit={postAlbum}>
+                    <div className="mb-4">
+                        <label htmlFor="artistId" className="appearance-none">
+                            ArtistId
+                        </label>
+                        <input
+                            type="text"
+                            name="artistId"
+                            value={artist._id}
+                            id="artistId"
+                            className="appearance-none"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label
+                            htmlFor="albumName"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                            Album Name
+                        </label>
+                        <input
+                            type="text"
+                            name="albumName"
+                            id="albumName"
+                            placeholder="Enter album name"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        {err.albumName && (
+                            <p className="text-red-500 text-xs italic">
+                                {err.albumName}
+                            </p>
+                        )}
+                    </div>
                     <div className="mb-4">
                         <label
                             htmlFor="artistName"
@@ -42,6 +74,8 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="artistName"
+                            value={artistName}
+                            onChange={(e) => setArtistName(e.target.value)}
                             id="artistName"
                             placeholder="Enter artist name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -54,112 +88,91 @@ const PatchArtist = ({artist}) => {
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="artistImage"
+                            htmlFor="releaseDate"
                             className="block text-gray-700 text-sm font-bold mb-2"
                         >
-                            Artist Image
+                            Release Date
+                        </label>
+                        <input
+                            type="date"
+                            name="releaseDate"
+                            id="releaseDate"
+                            placeholder="Enter release date"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        {err.releaseDate && (
+                            <p className="text-red-500 text-xs italic">
+                                {err.releaseDate}
+                            </p>
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="genre"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                            Genre
+                        </label>
+                        <input
+                            type="text"
+                            name="genre"
+                            id="genre"
+                            placeholder="Enter genre"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        {err.genre && (
+                            <p className="text-red-500 text-xs italic">
+                                {err.genre}
+                            </p>
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="albumImage"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                            Album Image
                         </label>
                         <input
                             type="file"
-                            name="artistImage"
-                            id="artistImage"
-                            placeholder="Enter artist image"
-                            //className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name="albumImage"
+                            id="albumImage"
+                            placeholder="Enter album image"
+                            //className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-
-                        {err.artistImage && (
+                        {err.albumImage && (
                             <p className="text-red-500 text-xs italic">
-                                {err.artistImage}
-                            </p>
-                        )}
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="city"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            name="city"
-                            id="city"
-                            placeholder="Enter city"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                        {err.city && (
-                            <p className="text-red-500 text-xs italic">
-                                {err.city}
-                            </p>
-                        )}
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="state"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            State
-                        </label>
-                        <input
-                            type="text"
-                            name="state"
-                            id="state"
-                            placeholder="Enter state"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                        {err.state && (
-                            <p className="text-red-500 text-xs italic">
-                                {err.state}
-                            </p>
-                        )}
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="biography"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            Biography
-                        </label>
-                        <input
-                            type="text"
-                            name="biography"
-                            id="biography"
-                            placeholder="Enter biography"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                        {err.biography && (
-                            <p className="text-red-500 text-xs italic">
-                                {err.biography}
+                                {err.albumImage}
                             </p>
                         )}
                     </div>
 
                     <div className="mb-4">
                         <label
-                            htmlFor="genres"
+                            htmlFor="description"
                             className="block text-gray-700 text-sm font-bold mb-2"
                         >
-                            Genres
+                            Description
                         </label>
                         <input
                             type="text"
-                            name="genres"
-                            id="genres"
-                            placeholder="Enter genres"
+                            name="description"
+                            id="description"
+                            placeholder="Enter description"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.genres && (
+                        {err.description && (
                             <p className="text-red-500 text-xs italic">
-                                {err.genres}
+                                {err.description}
                             </p>
                         )}
                     </div>
-                    <div className="mb-4">
+                    <div>
                         <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
-                            Edit Artist
+                            Add Album
                         </button>
                     </div>
                 </form>
@@ -167,4 +180,4 @@ const PatchArtist = ({artist}) => {
         </div>
     );
 };
-export default PatchArtist;
+export default AddAlbum;

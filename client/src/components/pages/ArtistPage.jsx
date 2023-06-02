@@ -1,5 +1,5 @@
 import ArtistDiscography from "../page_components/ArtistDiscography.jsx";
-import ModifyAlbum from "../content_managment_system/ModifyAlbum.jsx";
+import AddAlbum from "../content_managment_system/AddAlbum.jsx";
 import PatchArtist from "../content_managment_system/PatchArtist.jsx";
 import DeleteArtist from "../content_managment_system/DeleteArtist.jsx";
 import { useLocation } from "react-router-dom";
@@ -78,7 +78,7 @@ export default function ArtistPage() {
                 )}
 
                 {activeDiscographySection === 'add-album' && (
-                    <ModifyAlbum artist={data} />
+                    <AddAlbum artist={data} />
                 )}
             </section>
         </main>

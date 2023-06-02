@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-export default function CreateTrack({ state }) {
+export default function CreateTrack({ track }) {
     const [err, setErr] = useState({
         trackName: '',
         trackNumber: '',
@@ -9,23 +9,17 @@ export default function CreateTrack({ state }) {
         trackImage: '',
         trackFile: '',
     });
-    const ModifyTrack = (e) => {
-        e.preventDefault();
+    const [artistName, setArtistName] = useState(track.artistName);
 
+
+
+    const patchTrack = (e) => {
+        e.preventDefault();
         const formData = new FormData(e.target);
 
-        // const track = {
-        //     trackName: e.target.trackName.value,
-        //     artistName: e.target.artistName.value,
-        //     albumName: e.target.albumName.value,
-        //     releaseDate: e.target.releaseDate.value,
-        //     genre: e.target.genre.value,
-        //     trackFile: e.target.trackFile.value,
-        //     trackLength: e.target.trackLength.value,
-        // };
         axios
             .patch(
-                `http://localhost:4000/artists/${state.artistId}/album/${state._id}/track`,
+                `http://localhost:4000/artists/${track.artistId}/album/${track._id}/track`,
                 formData
             )
             .then((response) => {
@@ -33,7 +27,7 @@ export default function CreateTrack({ state }) {
                     console.log(response.data.message);
                 } else {
                     console.log(response.data.message);
-                    setErr({...err, ...response.data.message[0]});
+                    setErr({ ...err, ...response.data.message[0] });
                 }
             });
     };
@@ -43,7 +37,7 @@ export default function CreateTrack({ state }) {
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3">
                     <h1 className="text-3xl font-bold mb-5">Create Track</h1>
-                    <form onSubmit={ModifyTrack}>
+                    <form onSubmit={patchTrack}>
                         <div className="mb-4">
                             <label
                                 htmlFor="artistId"
@@ -54,7 +48,7 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="artistId"
-                                value={state.artistId}
+                                value={track.artistId}
                                 id="artistId"
                                 className="appearance-none"
                             />
@@ -70,7 +64,7 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="albumId"
-                                value={state._id}
+                                value={track._id}
                                 id="albumId"
                                 className="appearance-none"
                             />
@@ -106,7 +100,8 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="artistName"
-                                value={state?.artistName}
+                                value={artistName}
+                                onChange={(e) => setArtistName(e.target.value)}
                                 id="artistName"
                                 placeholder="Enter artist name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -127,7 +122,7 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="albumName"
-                                value={state?.albumName}
+                                value={track?.albumName}
                                 id="albumName"
                                 placeholder="Enter album name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -148,7 +143,7 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="releaseDate"
-                                value={state?.releaseDate}
+                                value={track?.releaseDate}
                                 id="releaseDate"
                                 placeholder="Enter release date"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -169,7 +164,7 @@ export default function CreateTrack({ state }) {
                             <input
                                 type="text"
                                 name="genre"
-                                value={state?.genre}
+                                value={track?.genre}
                                 id="genre"
                                 placeholder="Enter genre"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -192,7 +187,7 @@ export default function CreateTrack({ state }) {
                                 name="trackFile"
                                 id="trackFile"
                                 placeholder="Enter track file"
-                               // className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                // className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                             {err.trackFile && (
                                 <p className="text-red-500 text-xs italic">
@@ -200,13 +195,13 @@ export default function CreateTrack({ state }) {
                                 </p>
                             )}
                         </div>
-                        
+
                         <div>
                             <button
                                 type="submit"
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Modify Track
+                                Submit
                             </button>
                         </div>
                     </form>

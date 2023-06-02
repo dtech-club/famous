@@ -98,6 +98,22 @@ export const addAlbumToArtist = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 };
+//patch album
+export const patchAlbumToArtist = async (req, res) => {
+    try {
+        const { id, albumId } = req.params;
+        const artist = await ArtistCollection.findById(id);
+        const album = await AlbumCollection.findById(albumId);
+        const updateAlbum = await AlbumCollection.findByIdAndUpdate(
+            albumId,
+            req.body,
+            { new: true }
+        );
+        res.json({ success: true, data: updateAlbum });
+    } catch (err) {
+        res.json({ success: false, message: err.message });
+    }
+};
 
 export const addTrackToAlbum = async (req, res) => {
     try {
@@ -129,6 +145,24 @@ export const addTrackToAlbum = async (req, res) => {
         res.json({ success: false, message: err.message });
     }
 };
+// patch track
+export const patchTrackToAlbum = async (req, res) => {
+    try {
+        const { id, albumId, trackId } = req.params;
+        const artist = await ArtistCollection.findById(id);
+        const album = await AlbumCollection.findById(albumId);
+        const track = await TrackCollection.findById(trackId);
+        const updateTrack = await TrackCollection.findByIdAndUpdate(
+            trackId,
+            req.body,
+            { new: true }
+        );
+        res.json({ success: true, data: updateTrack });
+    } catch (err) {
+        res.json({ success: false, message: err.message });
+    }
+}
+
 
 export const deleteAlbumFromArtist = async (req, res) => {
     try {

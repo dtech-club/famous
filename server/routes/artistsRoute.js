@@ -11,6 +11,8 @@ import {
     deleteTrackFromAlbum,
     getAllArtists,
     getArtist,
+    patchAlbumToArtist,
+    patchTrackToAlbum,
     updateArtist,
 } from '../controllers/artistController.js';
 
@@ -33,14 +35,22 @@ router.get('/:id', getArtist);
 //router.patch('/:id', auth, isAdmin, updateArtist);
 router.patch('/:id', updateArtist);
 
-// add an album to an artist (patch)
+//create album (post)
+//router.post('/:id/album', auth, isAdmin, addAlbumToArtist);
+router.post('/:id/album', addAlbumToArtist);
+
+// modify an album (patch)
 //router.patch('/:id/album', auth, isAdmin, addAlbumToArtist);
-router.patch('/:id/album', addAlbumToArtist);
+router.patch('/:id/album', patchAlbumToArtist);
+
+//create track (post)
+//router.post('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
+router.post('/:id/album/:albumId/track', addTrackToAlbum);
 
 
-//add a track to an album (patch)
+//modify a track from an album (patch)
 //router.patch('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
-router.patch('/:id/album/:albumId/track', addTrackToAlbum);
+router.patch('/:id/album/:albumId/track', patchTrackToAlbum);
 
 
 //delete a track from an album (delete)

@@ -3,29 +3,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
-export default function ModifyAlbum({ artist }) {
-    console.log('artist ion patch page', artist);
-    const navigate = useNavigate();
+export default function PatchAlbum({ state }) {
+    //console.log('state ion patch page', state);
     //const { singleArtist, setSingleArtist } = useContext(MyContext);
+    const navigate = useNavigate();
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
+
+    const [artistName, setArtistName] = useState(state.artistName);
 
     const patchAlbum = (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
-        //     const album = {
-        //         albumName: e.target.albumName.value,
-        //         artistName: e.target.artistName.value,
-        //         releaseDate: e.target.releaseDate.value,
-        //         genre: e.target.genre.value,
-        //         albumImage: e.target.albumImage.value,
-        //         tracks: e.target.tracks.value,
-        //         description: e.target.description.value,
-        //     };
 
         axios
             .patch(
-                `http://localhost:4000/artists/${artist._id}/album`,
+                `http://localhost:4000/artists/${state._id}/album`,
                 formData
             )
             .then((response) => {
@@ -46,14 +38,13 @@ export default function ModifyAlbum({ artist }) {
 
                 <form onSubmit={patchAlbum}>
                     <div className="mb-4">
-                        <label
-                            htmlFor="artistId"
-                            className="appearance-none"
-                        >ArtistId</label>
+                        <label htmlFor="artistId" className="appearance-none">
+                            ArtistId
+                        </label>
                         <input
                             type="text"
                             name="artistId"
-                            value={artist._id}
+                            value={state._id}
                             id="artistId"
                             className="appearance-none"
                         />
@@ -89,7 +80,8 @@ export default function ModifyAlbum({ artist }) {
                         <input
                             type="text"
                             name="artistName"
-                            value={artist.artistName}
+                            value={artistName}
+                            onChange={(e) => setArtistName(e.target.value)}
                             id="artistName"
                             placeholder="Enter artist name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -186,7 +178,7 @@ export default function ModifyAlbum({ artist }) {
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
-                            Modify Album
+                            Edit Album
                         </button>
                     </div>
                 </form>
