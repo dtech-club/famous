@@ -35,7 +35,7 @@ const AddTrack = ({ state }) => {
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3">
                     <h1 className="text-3xl font-bold mb-5">Create Track</h1>
-                    <form onSubmit={ModifyTrack}>
+                    <form onSubmit={postTrack}>
                         <div className="mb-4">
                             <label
                                 htmlFor="artistId"
