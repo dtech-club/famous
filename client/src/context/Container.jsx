@@ -8,8 +8,10 @@ export default function Container({ children }) {
     const [user, setUser] = useState(null);
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
-    const [singleArtist, setSingleArtist] = useState({albums: []});
+    const [singleArtist, setSingleArtist] = useState({ albums: [] });
+    const [singleAlbum, setSingleAlbum] = useState({ tracks: [] });
     const [artistIdState, setArtistIdState] = useState('');
+    const [createArtist, setCreateArtist] = useState({ albums: [] });
 
     ///get all artists and albums on page load
 
@@ -29,12 +31,13 @@ export default function Container({ children }) {
         }
         axios.get('http://localhost:4000/artists').then((response) => {
             if (response.data.success) {
-                console.log(response.data.data);
+                console.log('artist data', response.data.data);
                 setArtists(response.data.data);
             }
         });
         axios.get('http://localhost:4000/music/albums').then((response) => {
             if (response.data.success) {
+                console.log(response.data.data, 'music albums');
                 setAlbums(response.data.data);
             }
         });
@@ -78,6 +81,10 @@ export default function Container({ children }) {
                 setSingleArtist,
                 artistIdState,
                 setArtistIdState,
+                createArtist,
+                setCreateArtist,
+                singleAlbum,
+                setSingleAlbum,
             }}
         >
             <Toaster />

@@ -1,34 +1,85 @@
-import ArtistImage from '../page_components/ArtistImage.jsx';
-import ArtistName from '../page_components/ArtistName.jsx';
-import ArtistBiography from '../page_components/ArtistBiography.jsx';
-import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
-import ArtistPersonalInfo from '../page_components/ArtistPersonalInfo.jsx';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import ArtistDiscography from "../page_components/ArtistDiscography.jsx";
+import AddAlbum from "../content_managment_system/AddAlbum.jsx";
+import PatchArtist from "../content_managment_system/PatchArtist.jsx";
+import DeleteArtist from "../content_managment_system/DeleteArtist.jsx";
+import { useLocation } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { MyContext } from "../../context/context.js";
+import "./artist-page.css";
+import ArtistAllInfo from "../page_components/ArtistAllInfo.jsx";
 
 export default function ArtistPage() {
+    const [activeArtistInfo, setActiveArtistInfo] =
+        useState('artist-information');
+
+    const [activeDiscographySection, setActiveDiscographySection] = useState(
+        'discography-section'
+    );
+
+    const { createArtist, singleArtist, setSingleArtist } =
+        useContext(MyContext);
+    useEffect(() => {
+        setSingleArtist(createArtist);
+    }, [createArtist]);
+
     const { state } = useLocation();
+
+    const data = state ? state : createArtist;
+
     return (
-        <main>
+        <main className="grid-section">
             <section>
-                <ArtistImage url={state?.artistImage} />
+                <DeleteArtist artist={data} />
+                <div id="button-to-select-cards">
+                    <button
+                        onClick={() =>
+                            setActiveArtistInfo('artist-information')
+                        }
+                    >
+                        artist information
+                    </button>
+                    <button onClick={() => setActiveArtistInfo('edit-artist')}>
+                        edit artist
+                    </button>
+                </div>
+
+                <div id="artist-container-contintional-rendering">
+                    {activeArtistInfo === 'artist-information' && (
+                        <ArtistAllInfo data={data} />
+                    )}
+
+                    {activeArtistInfo === 'edit-artist' && (
+                        <PatchArtist artist={data} />
+                    )}
+                </div>
             </section>
+
             <section>
-                <ArtistName name={state?.artistName} />
-            </section>
-            <section>
-                <ArtistBiography biography={state?.biography} />
-            </section>
-            <section>
-                <ArtistPersonalInfo
-                    city={state?.city}
-                    country={state?.state}
-                    genre={state?.genre}
-                />
-            </section>
-            <section>
-                <ArtistDiscography discography={state?.albums} artist={state}/>
+                <div id="buttons-to-add-albums">
+                    <button
+                        onClick={() =>
+                            setActiveDiscographySection('discography-section')
+                        }
+                    >
+                        Discography
+                    </button>
+                    <button
+                        onClick={() => setActiveDiscographySection('add-album')}
+                    >
+                        Add Album
+                    </button>
+                </div>
+
+                {activeDiscographySection === 'discography-section' && (
+                    <ArtistDiscography
+                        discography={data?.albums}
+                        artist={data}
+                    />
+                )}
+
+                {activeDiscographySection === 'add-album' && (
+                    <AddAlbum artist={data} />
+                )}
             </section>
         </main>
     );

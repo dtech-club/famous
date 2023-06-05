@@ -9,9 +9,7 @@ const trackSchema = new Schema(
         albumName: { type: String, required: true },
         releaseDate: { type: String, required: true },
         genre: { type: String, required: true },
-        trackFile: { type: String, required: true},
-        trackLength: { type: String },
-       
+        trackFile: { type: String, required: true },
     },
     { timestamps: true }
 );

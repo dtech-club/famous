@@ -1,13 +1,19 @@
+import { Howl, Howler } from 'howler';
+import Track from './Track.jsx';
+import { useState } from 'react';
+
 const AlbumTrackList = ({ tracklist }) => {
+    const [active, setActive] = useState('track');
     return (
         <div>
             <ul>
-                {tracklist?.map((track, index) => {
+                {tracklist?.map((track) => {
+                    console.log('tracklist', track.trackFile);
+
                     return (
-                        <li key={index}>
-                            <span>{track?.name}</span>
-                            <span>{track?.duration}</span>
-                        </li>
+                        <div>
+                            <Track key={track?._id} track={track} />
+                        </div>
                     );
                 })}
             </ul>

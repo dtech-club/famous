@@ -1,12 +1,5 @@
-import Radio from "./Radio.jsx";
-
 const Footer = () => {
-  return (
-    <footer>
-      {" "}
-      <Radio />
-    </footer>
-  );
+  return <footer></footer>;
 };
 
 export default Footer;

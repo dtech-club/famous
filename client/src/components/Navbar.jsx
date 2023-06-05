@@ -23,7 +23,7 @@ export default function Navbar() {
           <NavLink to="/albums"> Albums </NavLink>
         </li>
         {/* // if user is admin show the crate artist link */}
-        {user ? (
+        {!user ? (
           <li>
             <NavLink to="/createartist"> Create Artist </NavLink>
           </li>

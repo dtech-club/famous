@@ -1,42 +1,37 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { MyContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom';
 
-export default function CreateArtist() {
+const PatchArtist = ({artist}) => {
     const [err, setErr] = useState({
         artistName: '',
         artistImage: '',
         description: '',
     });
-    const ModifyArtist = (e) => {
-        const artist = {
-            artistName: e.target.artistName.value,
-            artistImage: e.target.artistImage.value,
-            city: e.target.city.value,
-            state: e.target.state.value,
-            biography: e.target.biography.value,
-            artistImage: e.target.artistImage.value,
-            genres: e.target.genres.value,
-            albums: e.target.albums.value,
-        };
+
+    const patchArtist = (e) => {
+        const formData = new FormData(e.target);
+
         axios
-            .patch('/artists', JSON.stringify(artist), {
-                headers: { 'Content-Type': 'application/json' },
-            })
+            .patch(`http://localhost:4000/artists/${artist._id}`, formData)
             .then((response) => {
                 if (response.data.success) {
-                    // navigate('/album');
+                    console.log(response.data.message);
                 } else {
                     console.log(response.data.message);
-                    setErr(...err, ...response.data.message[0]);
+                    setErr({ ...err, ...response.data.message[0] });
                 }
             });
     };
+
     return (
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Create Artist</h1>
-                <form onSubmit={ModifyArtist}>
+                <h1 className="text-3xl font-bold mb-5">Edit Artist</h1>
+
+                <form onSubmit={patchArtist}>
                     <div className="mb-4">
                         <label
                             htmlFor="artistName"
@@ -65,12 +60,13 @@ export default function CreateArtist() {
                             Artist Image
                         </label>
                         <input
-                            type="text"
+                            type="file"
                             name="artistImage"
                             id="artistImage"
                             placeholder="Enter artist image"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            //className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
+
                         {err.artistImage && (
                             <p className="text-red-500 text-xs italic">
                                 {err.artistImage}
@@ -137,26 +133,7 @@ export default function CreateArtist() {
                             </p>
                         )}
                     </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="artistImage"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            Artist Image
-                        </label>
-                        <input
-                            type="text"
-                            name="artistImage"
-                            id="artistImage"
-                            placeholder="Enter artist image"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                        {err.artistImage && (
-                            <p className="text-red-500 text-xs italic">
-                                {err.artistImage}
-                            </p>
-                        )}
-                    </div>
+
                     <div className="mb-4">
                         <label
                             htmlFor="genres"
@@ -178,35 +155,16 @@ export default function CreateArtist() {
                         )}
                     </div>
                     <div className="mb-4">
-                        <label
-                            htmlFor="albums"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            Albums
-                        </label>
-                        <input
-                            type="text"
-                            name="albums"
-                            id="albums"
-                            placeholder="Enter albums"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                        {err.albums && (
-                            <p className="text-red-500 text-xs italic">
-                                {err.albums}
-                            </p>
-                        )}
-                    </div>
-                    <div>
                         <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
-                            Modify Artist
+                            Edit Artist
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     );
-}
+};
+export default PatchArtist;
