@@ -44,6 +44,7 @@ const Track = ({ track }) => {
     }
   };
 
+<<<<<<< HEAD
   return (
     <li key={track?._id}>
       <button>
@@ -51,6 +52,15 @@ const Track = ({ track }) => {
       </button>
       <button onClick={() => setActive("track")}>track</button>
       <button onClick={() => setActive("edit-track")}>edit track</button>
+=======
+    return (
+        <li key={track?._id}>
+            <button>
+                <DeleteTrack track={track} setActive={setActive} />
+            </button>
+            <button onClick={() => setActive('track')}>track</button>
+            <button onClick={() => setActive('edit-track')}>edit track</button>
+>>>>>>> eadebdca9d88ca6c8fdaff106dfa8919aff0d39b
 
       {active === "track" && (
         <div>
@@ -61,9 +71,15 @@ const Track = ({ track }) => {
         </div>
       )}
 
+<<<<<<< HEAD
       {active === "edit-track" && <PatchTrack track={track} />}
     </li>
   );
+=======
+            {active === 'edit-track' && <PatchTrack track={track} setActive={setActive} />}
+        </li>
+    );
+>>>>>>> eadebdca9d88ca6c8fdaff106dfa8919aff0d39b
 };
 
 export default Track;

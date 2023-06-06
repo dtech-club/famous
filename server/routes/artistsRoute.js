@@ -41,7 +41,7 @@ router.post('/:id/album', addAlbumToArtist);
 
 // modify an album (patch)
 //router.patch('/:id/album', auth, isAdmin, addAlbumToArtist);
-router.patch('/:id/album', patchAlbumToArtist);
+router.patch('/:id/album/:albumId', patchAlbumToArtist);
 
 //create track (post)
 //router.post('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
@@ -50,7 +50,7 @@ router.post('/:id/album/:albumId/track', addTrackToAlbum);
 
 //modify a track from an album (patch)
 //router.patch('/:id/album/:albumId/track', auth, isAdmin, addTrackToAlbum);
-router.patch('/:id/album/:albumId/track', patchTrackToAlbum);
+router.patch('/:id/album/:albumId/track/:trackId', patchTrackToAlbum);
 
 
 //delete a track from an album (delete)

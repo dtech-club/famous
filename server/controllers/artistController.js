@@ -1,4 +1,5 @@
 //import FanCollection from '../models/fanModel.js';
+
 import ArtistCollection from '../models/artistModel.js';
 import AlbumCollection from '../models/albumModel.js';
 import TrackCollection from '../models/trackModel.js';
@@ -8,10 +9,26 @@ import AlbumImageCollection from '../models/albumImageModel.js';
 
 export const getAllArtists = async (req, res) => {
     try {
-        const artists = await ArtistCollection.find().populate({
-            path: 'albums',
-            populate: { path: 'tracks', model: 'Track' },
-        });
+        const artists = await ArtistCollection.find().populate(
+            [
+                {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            ]
+
+            // populate: { path: 'albums', model: 'Album' },
+
+            // populate: { path: 'tracks', model: 'Track' },
+        );
         res.json({ success: true, data: artists });
     } catch (err) {
         res.json({ success: false, message: err.message });
@@ -32,7 +49,22 @@ export const createArtist = async (req, res) => {
         }
 
         await artist.save();
-        res.json({ success: true, data: artist });
+        const artists = await ArtistCollection.find().populate([
+            {
+                path: 'albums',
+                model: 'Album',
+                populate: [
+                    { path: 'tracks', model: 'Track' },
+                    {
+                        path: 'artistId',
+                        model: 'Artist',
+                        populate: { path: 'albums', model: 'Album' },
+                    },
+                ],
+            },
+        ]);
+
+        res.json({ success: true, data: artists, artistId: artist._id });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -59,7 +91,22 @@ export const updateArtist = async (req, res) => {
             req.body,
             { new: true }
         );
-        res.json({ success: true, data: updateArtist });
+        const artists = await ArtistCollection.find().populate([
+            {
+                path: 'albums',
+                model: 'Album',
+                populate: [
+                    { path: 'tracks', model: 'Track' },
+                    {
+                        path: 'artistId',
+                        model: 'Artist',
+                        populate: { path: 'albums', model: 'Album' },
+                    },
+                ],
+            },
+        ]);
+
+        res.json({ success: true, data: artists, artistId: updateArtist._id });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -69,7 +116,24 @@ export const deleteArtist = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedArtist = await ArtistCollection.findByIdAndDelete(id);
-        res.json({ success: true, data: deletedArtist });
+        
+        const artists = await ArtistCollection.find().populate([
+            {
+                path: 'albums',
+                model: 'Album',
+                populate: [
+                    { path: 'tracks', model: 'Track' },
+                    {
+                        path: 'artistId',
+                        model: 'Artist',
+                        populate: { path: 'albums', model: 'Album' },
+                    },
+                ],
+            },
+        ]);
+        
+        
+        res.json({ success: true, data: artists });
     } catch {
         res.json({ success: false, message: err.message });
     }
@@ -78,6 +142,7 @@ export const deleteArtist = async (req, res) => {
 export const addAlbumToArtist = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log('lets check', id, req.body);
         const artist = await ArtistCollection.findById(id);
         const album = new AlbumCollection(req.body);
         if (req.files) {
@@ -90,10 +155,30 @@ export const addAlbumToArtist = async (req, res) => {
             await albumImage.save();
             album.albumImage = `http://localhost:4000/albumimages/${albumImage.filename}`;
         }
-        artist.albums.push(album);
+        artist.albums.push(album._id);
         await artist.save();
         await album.save();
-        res.json({ success: true, data: artist });
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+        res.json({ success: true, data: albums, albumId: album._id });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -109,7 +194,27 @@ export const patchAlbumToArtist = async (req, res) => {
             req.body,
             { new: true }
         );
-        res.json({ success: true, data: updateAlbum });
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+        res.json({ success: true, data: albums, albumId: updateAlbum._id });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -118,10 +223,10 @@ export const patchAlbumToArtist = async (req, res) => {
 export const addTrackToAlbum = async (req, res) => {
     try {
         const { id, albumId } = req.params;
+        console.log('id', id, albumId, req.body)
         const artist = await ArtistCollection.findById(id);
         const album = await AlbumCollection.findById(albumId);
         const track = new TrackCollection(req.body);
-
         if (req.files) {
             const trackFile = new TrackFileCollection({
                 filename:
@@ -131,16 +236,39 @@ export const addTrackToAlbum = async (req, res) => {
                 data: req.files.trackFile.data,
                 userId: track._id,
             });
+
+            //save track collection
             await trackFile.save();
             track.trackFile = `http://localhost:4000/trackfiles/${trackFile.filename}`;
         }
-
         //artist.albums.push(album);
         album.tracks.push(track);
         await artist.save();
         await album.save();
         await track.save();
-        res.json({ success: true, data: artist });
+
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+
+        res.json({ success: true, data: albums , albumId: albumId });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -157,12 +285,32 @@ export const patchTrackToAlbum = async (req, res) => {
             req.body,
             { new: true }
         );
-        res.json({ success: true, data: updateTrack });
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+
+        res.json({ success: true, data: albums, albumId: albumId });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
-}
-
+};
 
 export const deleteAlbumFromArtist = async (req, res) => {
     try {
@@ -171,9 +319,31 @@ export const deleteAlbumFromArtist = async (req, res) => {
         const album = await AlbumCollection.findById(albumId);
         artist.albums.pull(album);
         await artist.save();
-        //await artist.albums.remove();
+        
         await AlbumCollection.findByIdAndRemove(albumId);
-        res.json({ success: true, data: artist });
+
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+
+        res.json({ success: true, data: albums, artistId: album.artistId, albumId: albumId });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -189,10 +359,28 @@ export const deleteTrackFromAlbum = async (req, res) => {
         await artist.save();
         await album.save();
         await TrackCollection.findByIdAndRemove(trackId);
-        
 
-        
-        res.json({ success: true, data: artist });
+        const albums = await AlbumCollection.find().populate([
+            { path: 'tracks', model: 'Track' },
+            {
+                path: 'artistId',
+                model: 'Artist',
+                populate: {
+                    path: 'albums',
+                    model: 'Album',
+                    populate: [
+                        { path: 'tracks', model: 'Track' },
+                        {
+                            path: 'artistId',
+                            model: 'Artist',
+                            populate: { path: 'albums', model: 'Album' },
+                        },
+                    ],
+                },
+            },
+        ]);
+
+        res.json({ success: true, data: albums, albumId: albumId });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }

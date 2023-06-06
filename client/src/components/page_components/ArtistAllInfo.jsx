@@ -5,23 +5,23 @@ import ArtistPersonalInfo from "../page_components/ArtistPersonalInfo";
 
 
 
-const ArtistAllInfo = ({data}) => {
+const ArtistAllInfo = ({artist}) => {
     return (
         <div id="artist-information">
             <section className="image-section">
-                <ArtistImage url={data?.artistImage} />
+                <ArtistImage url={artist?.artistImage} />
             </section>
             <section className="name-section">
-                <ArtistName name={data?.artistName} />
+                <ArtistName name={artist?.artistName} />
             </section>
             <section className="biography-section">
-                <ArtistBiography biography={data?.biography} />
+                <ArtistBiography biography={artist?.biography} />
             </section>
             <section className="personal-section">
                 <ArtistPersonalInfo
-                    city={data?.city}
-                    country={data?.state}
-                    genre={data?.genre}
+                    city={artist?.city}
+                    country={artist?.state}
+                    genre={artist?.genre}
                 />
                 <p>
                     Here is the info Lorem ipsum dolor sit amet consectetur

@@ -3,13 +3,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
-export default function PatchAlbum({ state }) {
-    //console.log('state ion patch page', state);
-    //const { singleArtist, setSingleArtist } = useContext(MyContext);
+export default function PatchAlbum({ album, setActive }) {
+    const { setAlbums } = useContext(MyContext);
     const navigate = useNavigate();
-    const [err, setErr] = useState({ userName: '', email: '', password: '' });
 
-    const [artistName, setArtistName] = useState(state.artistName);
+    const [err, setErr] = useState({ userName: '', email: '', password: '' });
 
     const patchAlbum = (e) => {
         e.preventDefault();
@@ -17,13 +15,15 @@ export default function PatchAlbum({ state }) {
 
         axios
             .patch(
-                `http://localhost:4000/artists/${state._id}/album`,
+                `http://localhost:4000/artists/${album._id}/album/${album._id}`,
                 formData
             )
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.data);
-                    //navigate(`/album/${response.data.data._id}`);
+                    setAlbums(response.data.data);
+                    setActive('album-tracklist');
+                    navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -34,7 +34,7 @@ export default function PatchAlbum({ state }) {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Create Album</h1>
+                <h1 className="text-3xl font-bold mb-5">Edit Album</h1>
 
                 <form onSubmit={patchAlbum}>
                     <div className="mb-4">
@@ -44,7 +44,8 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="artistId"
-                            value={state._id}
+                            defaultValue={album?.artistId._id}
+                            disabled
                             id="artistId"
                             className="appearance-none"
                         />
@@ -60,13 +61,14 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="albumName"
+                            defaultValue={album.albumName}
                             id="albumName"
                             placeholder="Enter album name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.albumName && (
+                        {err?.albumName && (
                             <p className="text-red-500 text-xs italic">
-                                {err.albumName}
+                                {err?.albumName}
                             </p>
                         )}
                     </div>
@@ -80,15 +82,14 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="artistName"
-                            value={artistName}
-                            onChange={(e) => setArtistName(e.target.value)}
+                            defaultValue={album?.artistName}
                             id="artistName"
                             placeholder="Enter artist name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.artistName && (
+                        {err?.artistName && (
                             <p className="text-red-500 text-xs italic">
-                                {err.artistName}
+                                {err?.artistName}
                             </p>
                         )}
                     </div>
@@ -102,13 +103,14 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="date"
                             name="releaseDate"
+                            defaultValue={album?.releaseDate}
                             id="releaseDate"
                             placeholder="Enter release date"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.releaseDate && (
+                        {err?.releaseDate && (
                             <p className="text-red-500 text-xs italic">
-                                {err.releaseDate}
+                                {err?.releaseDate}
                             </p>
                         )}
                     </div>
@@ -122,13 +124,14 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="genre"
+                            defaultValue={album?.genre}
                             id="genre"
                             placeholder="Enter genre"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.genre && (
+                        {err?.genre && (
                             <p className="text-red-500 text-xs italic">
-                                {err.genre}
+                                {err?.genre}
                             </p>
                         )}
                     </div>
@@ -146,9 +149,9 @@ export default function PatchAlbum({ state }) {
                             placeholder="Enter album image"
                             //className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.albumImage && (
+                        {err?.albumImage && (
                             <p className="text-red-500 text-xs italic">
-                                {err.albumImage}
+                                {err?.albumImage}
                             </p>
                         )}
                     </div>
@@ -163,13 +166,14 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="description"
+                            defaultValue={album?.description}
                             id="description"
                             placeholder="Enter description"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {err.description && (
+                        {err?.description && (
                             <p className="text-red-500 text-xs italic">
-                                {err.description}
+                                {err?.description}
                             </p>
                         )}
                     </div>

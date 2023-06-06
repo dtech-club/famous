@@ -1,7 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { MyContext } from '../../context/context.js';
+import { useNavigate } from 'react-router-dom';
 
-const AddTrack = ({ state }) => {
+const AddTrack = ({ album, setActive }) => {
+    const navigate = useNavigate();
+    const { setAlbums } = useContext(MyContext);
     const [err, setErr] = useState({
         trackName: '',
         trackNumber: '',
@@ -9,7 +13,6 @@ const AddTrack = ({ state }) => {
         trackImage: '',
         trackFile: '',
     });
-    const [artistName, setArtistName] = useState(state.artistName);
 
     const postTrack = (e) => {
         e.preventDefault();
@@ -17,12 +20,15 @@ const AddTrack = ({ state }) => {
 
         axios
             .post(
-                `http://localhost:4000/artists/${state.artistId}/album/${state._id}/track`,
+                `http://localhost:4000/artists/${album.artistId._id}/album/${album._id}/track`,
                 formData
             )
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.message);
+                    console.log('lets check',response.data.data);
+                    setAlbums(response.data.data);
+                    setActive('album-tracklist');
+                    navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -46,7 +52,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="artistId"
-                                value={state.artistId}
+                                value={album.artistId._id}
                                 id="artistId"
                                 className="appearance-none"
                             />
@@ -62,7 +68,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="albumId"
-                                value={state._id}
+                                value={album._id}
                                 id="albumId"
                                 className="appearance-none"
                             />
@@ -98,8 +104,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="artistName"
-                                value={artistName}
-                                onChange={(e) => setArtistName(e.target.value)}
+                                defaultValue={album.artistName}
                                 id="artistName"
                                 placeholder="Enter artist name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -120,7 +125,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="albumName"
-                                value={state?.albumName}
+                                defaultValue={album.albumName}
                                 id="albumName"
                                 placeholder="Enter album name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -141,7 +146,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="releaseDate"
-                                value={state?.releaseDate}
+                                defaultValue={album.releaseDate}
                                 id="releaseDate"
                                 placeholder="Enter release date"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -162,7 +167,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="genre"
-                                value={state?.genre}
+                                defaultValue={album.genre}
                                 id="genre"
                                 placeholder="Enter genre"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

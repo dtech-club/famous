@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateArtist() {
     const navigate = useNavigate();
-    const { createArtist, setCreateArtist } = useContext(MyContext);
+    const { createArtist, setCreateArtist, setArtists } = useContext(MyContext);
     const [err, setErr] = useState({
         artistName: '',
         artistImage: '',
@@ -23,27 +23,16 @@ export default function CreateArtist() {
 
     const CreateArtist = (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
-
-        // const artist = {
-        //     artistName: e.target.artistName.value,
-        //     artistImage: e.target.artistImage.files,
-        //     city: e.target.city.value,
-        //     state: e.target.state.value,
-        //     biography: e.target.biography.value,
-        //     genres: e.target.genres.value,
-        //     albums: []
-        // };
-
         axios
             .post('http://localhost:4000/artists', formData)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.message);
-                    setCreateArtist(response.data.data);
+                    console.log(response.data.data);
+                   
+                    setArtists(response.data.data)
 
-                    navigate(`/artists/${response.data.data._id}`);
+                    navigate(`/artists/${response.data.artistId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
