@@ -5,7 +5,7 @@ import { MyContext } from "../context/context";
 export default function Navbar() {
   const { user } = useContext(MyContext);
   return (
-    <nav class="fixed top-0 right-10">
+    <nav className="fixed top-0 right-10">
       <ul>
         <li>
           {" "}

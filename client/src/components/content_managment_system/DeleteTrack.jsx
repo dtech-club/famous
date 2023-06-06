@@ -7,6 +7,21 @@ const DeleteTrack = ({ track, setActive }) => {
     const navigate = useNavigate();
     const { setAlbums } = useContext(MyContext);
 
+<<<<<<< HEAD
+const DeleteTrack = ({ track }) => {
+  const deleteTrack = (e) => {
+    e.preventDefault();
+
+    axios
+      .delete(
+        `http://localhost:4000/artists/${track.artistId}/album/${track.albumId}/track/${track._id}`
+      )
+      .then((response) => {
+        if (response.data.success) {
+          console.log(response.data.message);
+        } else {
+          console.log(response.data.message);
+=======
     const deleteTrack = (e) => {
         e.preventDefault();
 
@@ -21,14 +36,15 @@ const DeleteTrack = ({ track, setActive }) => {
             } else {
                 console.log(response.data.message);
             }
+>>>>>>> eadebdca9d88ca6c8fdaff106dfa8919aff0d39b
         }
-        );
-    };
+      });
+  };
 
-    return (
-        <div>
-            <button onClick={deleteTrack}>DeleteTrack</button>
-        </div>
-    );
+  return (
+    <div>
+      <button onClick={deleteTrack}>DeleteTrack</button>
+    </div>
+  );
 };
 export default DeleteTrack;
