@@ -3,12 +3,20 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MyContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 
-const PatchArtist = ({artist}) => {
+const PatchArtist = ({ artist }) => {
+    const navigate = useNavigate();
+    const { setArtists } = useContext(MyContext);
+
     const [err, setErr] = useState({
         artistName: '',
         artistImage: '',
-        description: '',
+        city: '',
+        state: '',
+        biography: '',
+        genres: '',
+        albums: '',
     });
+    //console.log('patch artist', artist);
 
     const patchArtist = (e) => {
         const formData = new FormData(e.target);
@@ -17,7 +25,9 @@ const PatchArtist = ({artist}) => {
             .patch(`http://localhost:4000/artists/${artist._id}`, formData)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.message);
+                    console.log('patched artist', response.data.data);
+                    setArtists(response.data.data);
+                    navigate(`/artists/${response.data.artistId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -42,6 +52,7 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="artistName"
+                            defaultValue={artist.artistName}
                             id="artistName"
                             placeholder="Enter artist name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -83,6 +94,7 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="city"
+                            defaultValue={artist.city}
                             id="city"
                             placeholder="Enter city"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -103,6 +115,7 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="state"
+                            defaultValue={artist.state}
                             id="state"
                             placeholder="Enter state"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -123,6 +136,7 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="biography"
+                            defaultValue={artist.biography}
                             id="biography"
                             placeholder="Enter biography"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -144,6 +158,7 @@ const PatchArtist = ({artist}) => {
                         <input
                             type="text"
                             name="genres"
+                            defaultValue={artist.genres}
                             id="genres"
                             placeholder="Enter genres"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

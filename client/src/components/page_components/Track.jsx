@@ -46,7 +46,7 @@ const Track = ({ track }) => {
     return (
         <li key={track?._id}>
             <button>
-                <DeleteTrack track={track} />
+                <DeleteTrack track={track} setActive={setActive} />
             </button>
             <button onClick={() => setActive('track')}>track</button>
             <button onClick={() => setActive('edit-track')}>edit track</button>
@@ -60,7 +60,7 @@ const Track = ({ track }) => {
                 </div>
             )}
 
-            {active === 'edit-track' && <PatchTrack track={track} />}
+            {active === 'edit-track' && <PatchTrack track={track} setActive={setActive} />}
         </li>
     );
 };

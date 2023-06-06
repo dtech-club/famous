@@ -15,13 +15,12 @@ export default function ArtistPage() {
         'discography-section'
     );
     const { id } = useParams();
-    const { createArtist, singleArtist, setSingleArtist, artists } =
-        useContext(MyContext);
+    const { singleArtist, setSingleArtist, artists } = useContext(MyContext);
 
     useEffect(() => {
         const artist = artists.find((artist) => artist._id === id);
         setSingleArtist(artist);
-    }, [id]);
+    }, [id, artists]);
 
     return (
         <main className="grid-section">

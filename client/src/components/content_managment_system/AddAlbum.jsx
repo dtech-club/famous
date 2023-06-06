@@ -5,10 +5,10 @@ import { MyContext } from '../../context/context.js';
 
 const AddAlbum = ({ artist }) => {
     const navigate = useNavigate();
-    const { singleAlbum, setSingleAlbum, setSingleArtist, setAlbums } =
+    const { setAlbums } =
         useContext(MyContext);
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
-    //const [artistName, setArtistName] = useState(artist.artistName);
+    
 
     const postAlbum = (e) => {
         e.preventDefault();
@@ -18,9 +18,7 @@ const AddAlbum = ({ artist }) => {
             .then((response) => {
                 if (response.data.success) {
                     console.log('create album', response.data.data);
-                    setAlbums(response.data.data);
-                    // setTimeout(() => {
-                    // }, 1000);
+                    setAlbums(response.data.data);                   
                     navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);

@@ -18,7 +18,7 @@ const AlbumPage = () => {
     useEffect(() => {
         const album = albums.find((album) => album._id === id);
         setSingleAlbum(album);
-    }, [id]);
+    }, [id, albums]);
     
   
    
@@ -42,9 +42,11 @@ const AlbumPage = () => {
                     <button onClick={() => setActive('album-tracklist')}>
                         Album tracklist
                     </button>
+                    
                     <button onClick={() => setActive('add-track')}>
                         Add track
                     </button>
+
                     <button onClick={() => setActive('edit-album')}>
                         Edit Album
                     </button>
@@ -53,8 +55,8 @@ const AlbumPage = () => {
                     {active === 'album-tracklist' && (
                         <AlbumTrackList tracklist={singleAlbum?.tracks} />
                     )}
-                    {active === 'add-track' && <AddTrack album={singleAlbum} />}
-                    {active === 'edit-album' && <PatchAlbum album={singleAlbum} />}
+                    {active === 'add-track' && <AddTrack album={singleAlbum} setActive={setActive} />}
+                    {active === 'edit-album' && <PatchAlbum album={singleAlbum} setActive={setActive}/>}
                 </div>
             </section>
 

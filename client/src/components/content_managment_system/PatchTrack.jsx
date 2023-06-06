@@ -1,7 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../../context/context.js';
 
-export default function PatchTrack({ track }) {
+
+export default function PatchTrack({ track, setActive }) {
+    const navigate = useNavigate();
+    const { setAlbums } = useContext(MyContext);
     const [err, setErr] = useState({
         trackName: '',
         trackNumber: '',
@@ -9,7 +14,7 @@ export default function PatchTrack({ track }) {
         trackImage: '',
         trackFile: '',
     });
-    const [artistName, setArtistName] = useState(track.artistName);
+   
 
 
 
@@ -25,6 +30,9 @@ export default function PatchTrack({ track }) {
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.message);
+                    setAlbums(response.data.data);
+                    setActive('track');
+                    navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -48,7 +56,8 @@ export default function PatchTrack({ track }) {
                             <input
                                 type="text"
                                 name="artistId"
-                                value={track.artistId}
+                                defaultValue={track.artistId}
+                                disabled
                                 id="artistId"
                                 className="appearance-none"
                             />
@@ -64,7 +73,8 @@ export default function PatchTrack({ track }) {
                             <input
                                 type="text"
                                 name="albumId"
-                                value={track._id}
+                                defaultValue={track._id}
+                                disabled
                                 id="albumId"
                                 className="appearance-none"
                             />
@@ -80,6 +90,7 @@ export default function PatchTrack({ track }) {
                             <input
                                 type="text"
                                 name="trackName"
+                                defaultValue={track.trackName}
                                 id="trackName"
                                 placeholder="Enter track name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -100,8 +111,7 @@ export default function PatchTrack({ track }) {
                             <input
                                 type="text"
                                 name="artistName"
-                                value={artistName}
-                                onChange={(e) => setArtistName(e.target.value)}
+                                defaultValue={track.artistName}
                                 id="artistName"
                                 placeholder="Enter artist name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

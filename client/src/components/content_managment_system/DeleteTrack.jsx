@@ -1,6 +1,12 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { MyContext } from "../../context/context.js";
 
-const DeleteTrack = ({ track }) => {
+const DeleteTrack = ({ track, setActive }) => {
+    const navigate = useNavigate();
+    const { setAlbums } = useContext(MyContext);
+
     const deleteTrack = (e) => {
         e.preventDefault();
 
@@ -9,6 +15,9 @@ const DeleteTrack = ({ track }) => {
         .then((response) => {
             if (response.data.success) {
                 console.log(response.data.message);
+                setAlbums(response.data.data);
+                setActive('track')
+                navigate(`/albums/${response.data.albumId}`);
             } else {
                 console.log(response.data.message);
             }

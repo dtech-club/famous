@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateArtist() {
     const navigate = useNavigate();
-    const { createArtist, setCreateArtist } = useContext(MyContext);
+    const { createArtist, setCreateArtist, setArtists } = useContext(MyContext);
     const [err, setErr] = useState({
         artistName: '',
         artistImage: '',
@@ -28,10 +28,11 @@ export default function CreateArtist() {
             .post('http://localhost:4000/artists', formData)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.message);
-                    setCreateArtist(response.data.data);
+                    console.log(response.data.data);
+                   
+                    setArtists(response.data.data)
 
-                    navigate(`/artists/${response.data.data._id}`);
+                    navigate(`/artists/${response.data.artistId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });

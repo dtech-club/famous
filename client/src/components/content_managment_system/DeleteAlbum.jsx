@@ -1,19 +1,23 @@
 import axios from 'axios';
-//import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {useContext} from 'react';
+import {MyContext} from '../../context/context.js';
 
 const DeleteAlbum = ({ album }) => {
-    //const navigate = useNavigate();
+    const { setAlbums } = useContext(MyContext);
+    const navigate = useNavigate();
     const deleteAlbum = (e) => {
         e.preventDefault();
 
         axios
             .delete(
-                `http://localhost:4000/artists/${album.artistId}/album/${album._id}`
+                `http://localhost:4000/artists/${album.artistId._id}/album/${album._id}`
             )
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.message);
-                    //navigate(`/artists/${state.artistId}`);
+                    setAlbums(response.data.data);
+                    navigate(`/artists/${response.data.artistId}`);
                 } else {
                     console.log(response.data.message);
                 }
