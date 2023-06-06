@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
 export default function PatchAlbum({ album, setActive }) {
-    const { setAlbums } = useContext(MyContext);
+    const { setAlbums, setArtists } = useContext(MyContext);
     const navigate = useNavigate();
 
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
@@ -22,6 +22,7 @@ export default function PatchAlbum({ album, setActive }) {
                 if (response.data.success) {
                     console.log(response.data.data);
                     setAlbums(response.data.data);
+                    setArtists(response.data.artists);
                     setActive('album-tracklist');
                     navigate(`/albums/${response.data.albumId}`);
                 } else {

@@ -4,7 +4,7 @@ import {useContext} from 'react';
 import {MyContext} from '../../context/context.js';
 
 const DeleteAlbum = ({ album }) => {
-    const { setAlbums } = useContext(MyContext);
+    const { setAlbums, setArtists } = useContext(MyContext);
     const navigate = useNavigate();
     const deleteAlbum = (e) => {
         e.preventDefault();
@@ -17,6 +17,7 @@ const DeleteAlbum = ({ album }) => {
                 if (response.data.success) {
                     console.log(response.data.message);
                     setAlbums(response.data.data);
+                    setArtists(response.data.artists);
                     navigate(`/artists/${response.data.artistId}`);
                 } else {
                     console.log(response.data.message);

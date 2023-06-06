@@ -11,8 +11,8 @@ const AlbumTrackList = ({ tracklist }) => {
                     console.log('tracklist', track.trackFile);
 
                     return (
-                        <div>
-                            <Track key={track?._id} track={track} />
+                        <div key={track?._id}>
+                            <Track  track={track} />
                         </div>
                     );
                 })}

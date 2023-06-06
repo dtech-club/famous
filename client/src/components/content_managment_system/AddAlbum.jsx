@@ -3,12 +3,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
+
 const AddAlbum = ({ artist }) => {
     const navigate = useNavigate();
-    const { setAlbums } =
-        useContext(MyContext);
+    const { setAlbums, setArtists } = useContext(MyContext);
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
-    
 
     const postAlbum = (e) => {
         e.preventDefault();
@@ -18,7 +17,8 @@ const AddAlbum = ({ artist }) => {
             .then((response) => {
                 if (response.data.success) {
                     console.log('create album', response.data.data);
-                    setAlbums(response.data.data);                   
+                    setAlbums(response.data.data);
+                    setArtists(response.data.artists);
                     navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);
