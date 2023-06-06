@@ -4,15 +4,20 @@ import { Link } from 'react-router-dom';
 
 const Albums = () => {
     const { albums } = useContext(MyContext);
+    
     return (
-        <div className="albums">
+        <div
+            className="albums"
+            class="flex justify-between m-20"
+            
+        >
             {albums.map((album) => {
                 return (
-                    <div key={album._id} className="small-albums">
+                    <div key={album._id} className="small-albums" >
                         <Link to={`/albums/${album._id}`}>
-                            <h3>{album.artistName}</h3>
-                            <img src={album.albumImage} alt="" />
-                            <p>{album.albumName}</p>
+                            <h3 class = "py-10">{album.artistName}</h3>
+                            <img src={album.albumImage} alt={album?.albumName} class = "object-contain"/>
+                            <p class = "py-10">{album.albumName}</p>
                         </Link>
                     </div>
                 );
