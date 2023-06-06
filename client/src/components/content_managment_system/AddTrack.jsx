@@ -1,15 +1,25 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { MyContext } from '../../context/context.js';
 
-const AddTrack = ({ state }) => {
-    const [err, setErr] = useState({
+const AddTrack = ({ album }) => {
+    const { createTrack, setCreateTrack } = useContext(MyContext);
+        const [err, setErr] = useState({
         trackName: '',
         trackNumber: '',
         trackLength: '',
         trackImage: '',
         trackFile: '',
     });
-    const [artistName, setArtistName] = useState(state.artistName);
+    const [artistName, setArtistName] = useState(album.artistName);
+
+    useEffect(() => {
+        setCreateTrack({});
+    }, []);
+
+    useEffect(() => {
+        console.log('createTrack:', createTrack);
+    }, [createTrack]);
 
     const postTrack = (e) => {
         e.preventDefault();
@@ -17,12 +27,13 @@ const AddTrack = ({ state }) => {
 
         axios
             .post(
-                `http://localhost:4000/artists/${state.artistId}/album/${state._id}/track`,
+                `http://localhost:4000/artists/${album.artistId}/album/${album._id}/track`,
                 formData
             )
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.message);
+                    setCreateTrack(response.data.data);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -46,7 +57,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="artistId"
-                                value={state.artistId}
+                                value={album.artistId}
                                 id="artistId"
                                 className="appearance-none"
                             />
@@ -62,7 +73,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="albumId"
-                                value={state._id}
+                                value={album._id}
                                 id="albumId"
                                 className="appearance-none"
                             />
@@ -120,7 +131,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="albumName"
-                                value={state?.albumName}
+                                value={album?.albumName}
                                 id="albumName"
                                 placeholder="Enter album name"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -141,7 +152,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="releaseDate"
-                                value={state?.releaseDate}
+                                value={album?.releaseDate}
                                 id="releaseDate"
                                 placeholder="Enter release date"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -162,7 +173,7 @@ const AddTrack = ({ state }) => {
                             <input
                                 type="text"
                                 name="genre"
-                                value={state?.genre}
+                                value={album?.genre}
                                 id="genre"
                                 placeholder="Enter genre"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

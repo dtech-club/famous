@@ -5,8 +5,10 @@ import { MyContext } from '../../context/context.js';
 
 const AddAlbum = ({ artist }) => {
     const navigate = useNavigate();
+    const { singleAlbum, setSingleAlbum, setSingleArtist, setAlbums } =
+        useContext(MyContext);
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
-    const [artistName, setArtistName] = useState(artist.artistName);
+    //const [artistName, setArtistName] = useState(artist.artistName);
 
     const postAlbum = (e) => {
         e.preventDefault();
@@ -15,8 +17,11 @@ const AddAlbum = ({ artist }) => {
             .post(`http://localhost:4000/artists/${artist._id}/album`, formData)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data.data);
-                    //navigate(`/album/${response.data.data._id}`);
+                    console.log('create album', response.data.data);
+                    setAlbums(response.data.data);
+                    // setTimeout(() => {
+                    // }, 1000);
+                    navigate(`/albums/${response.data.albumId}`);
                 } else {
                     console.log(response.data.message);
                     setErr({ ...err, ...response.data.message[0] });
@@ -38,7 +43,7 @@ const AddAlbum = ({ artist }) => {
                         <input
                             type="text"
                             name="artistId"
-                            value={artist._id}
+                            defaultValue={artist._id.toString()}
                             id="artistId"
                             className="appearance-none"
                         />
@@ -74,8 +79,8 @@ const AddAlbum = ({ artist }) => {
                         <input
                             type="text"
                             name="artistName"
-                            value={artistName}
-                            onChange={(e) => setArtistName(e.target.value)}
+                            defaultValue={artist?.artistName}
+                            // onChange={(e) => setArtistName(e.target.value)}
                             id="artistName"
                             placeholder="Enter artist name"
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

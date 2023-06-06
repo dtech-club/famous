@@ -23,19 +23,7 @@ export default function CreateArtist() {
 
     const CreateArtist = (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
-
-        // const artist = {
-        //     artistName: e.target.artistName.value,
-        //     artistImage: e.target.artistImage.files,
-        //     city: e.target.city.value,
-        //     state: e.target.state.value,
-        //     biography: e.target.biography.value,
-        //     genres: e.target.genres.value,
-        //     albums: []
-        // };
-
         axios
             .post('http://localhost:4000/artists', formData)
             .then((response) => {

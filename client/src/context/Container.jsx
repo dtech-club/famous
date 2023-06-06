@@ -12,6 +12,9 @@ export default function Container({ children }) {
     const [singleAlbum, setSingleAlbum] = useState({ tracks: [] });
     const [artistIdState, setArtistIdState] = useState('');
     const [createArtist, setCreateArtist] = useState({ albums: [] });
+    const [createAlbum, setCreateAlbum] = useState({ tracks: [] });
+    const [createTrack, setCreateTrack] = useState({});
+
 
     ///get all artists and albums on page load
 
@@ -47,24 +50,24 @@ export default function Container({ children }) {
 
     const [data, setData] = useState({});
 
-    useEffect(() => {
-        axios
-            .get(`http://localhost:4000/artists/${artistIdState}`)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.success) {
-                    console.log('response.data.data', response.data.data);
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:4000/artists/${artistIdState}`)
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             if (response.data.success) {
+    //                 console.log('response.data.data', response.data.data);
 
-                    setData(response.data.data);
-                } else {
-                    toast.error(response.data.data);
-                }
-            });
-    }, [artistIdState]);
+    //                 setData(response.data.data);
+    //             } else {
+    //                 toast.error(response.data.data);
+    //             }
+    //         });
+    // }, [artistIdState]);
 
-    useEffect(() => {
-        setSingleArtist(data);
-    }, [data]);
+    // useEffect(() => {
+    //     setSingleArtist(data);
+    // }, [data]);
 
     ////////////////////////////
 
@@ -85,6 +88,10 @@ export default function Container({ children }) {
                 setCreateArtist,
                 singleAlbum,
                 setSingleAlbum,
+                createAlbum,
+                setCreateAlbum,
+                createTrack,
+                setCreateTrack,
             }}
         >
             <Toaster />

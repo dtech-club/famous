@@ -3,13 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
-export default function PatchAlbum({ state }) {
+export default function PatchAlbum({ album }) {
     //console.log('state ion patch page', state);
     //const { singleArtist, setSingleArtist } = useContext(MyContext);
     const navigate = useNavigate();
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
 
-    const [artistName, setArtistName] = useState(state.artistName);
+    const [artistName, setArtistName] = useState(album.artistName);
 
     const patchAlbum = (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ export default function PatchAlbum({ state }) {
 
         axios
             .patch(
-                `http://localhost:4000/artists/${state._id}/album`,
+                `http://localhost:4000/artists/${album._id}/album/${album._id}`,
                 formData
             )
             .then((response) => {
@@ -34,7 +34,7 @@ export default function PatchAlbum({ state }) {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Create Album</h1>
+                <h1 className="text-3xl font-bold mb-5">Edit Album</h1>
 
                 <form onSubmit={patchAlbum}>
                     <div className="mb-4">
@@ -44,7 +44,7 @@ export default function PatchAlbum({ state }) {
                         <input
                             type="text"
                             name="artistId"
-                            value={state._id}
+                            value={album._id}
                             id="artistId"
                             className="appearance-none"
                         />

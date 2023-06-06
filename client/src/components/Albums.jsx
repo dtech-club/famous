@@ -9,7 +9,7 @@ const Albums = () => {
             {albums.map((album) => {
                 return (
                     <div key={album._id} className="small-albums">
-                        <Link to={`/albums/${album._id}`} state={album}>
+                        <Link to={`/albums/${album._id}`}>
                             <h3>{album.artistName}</h3>
                             <img src={album.albumImage} alt="" />
                             <p>{album.albumName}</p>

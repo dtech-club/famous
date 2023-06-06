@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { MyContext } from '../../context/context.js';
 import AlbumName from '../page_components/AlbumName.jsx';
 import AlbumImage from '../page_components/AlbumImage.jsx';
 import AlbumTrackList from '../page_components/AlbumTrackList.jsx';
@@ -9,21 +10,31 @@ import PatchAlbum from '../content_managment_system/PatchAlbum.jsx';
 import AddTrack from '../content_managment_system/AddTrack.jsx';
 
 const AlbumPage = () => {
-    const { state } = useLocation();
+    const { id } = useParams();
     const [active, setActive] = useState('album-tracklist');
+
+    const { albums, singleAlbum, setSingleAlbum } = useContext(MyContext);
+
+    useEffect(() => {
+        const album = albums.find((album) => album._id === id);
+        setSingleAlbum(album);
+    }, [id]);
+    
+  
+   
 
     return (
         <main>
             <section id="album-information">
                 <button>
-                    <DeleteAlbum state={state} />
+                    <DeleteAlbum album={singleAlbum} />
                 </button>
-                
+
                 <div>
-                    <AlbumImage url={state?.albumImage} />
+                    <AlbumImage url={singleAlbum?.albumImage} />
                 </div>
                 <div>
-                    <AlbumName name={state?.albumName} />
+                    <AlbumName name={singleAlbum?.albumName} />
                 </div>
             </section>
             <section>
@@ -40,16 +51,16 @@ const AlbumPage = () => {
                 </div>
                 <div id="conditional-renedring-to-add-track">
                     {active === 'album-tracklist' && (
-                        <AlbumTrackList tracklist={state?.tracks} />
+                        <AlbumTrackList tracklist={singleAlbum?.tracks} />
                     )}
-                    {active === 'add-track' && <AddTrack state={state} />}
-                    {active === 'edit-album' && <PatchAlbum state={state} />}
+                    {active === 'add-track' && <AddTrack album={singleAlbum} />}
+                    {active === 'edit-album' && <PatchAlbum album={singleAlbum} />}
                 </div>
             </section>
 
-            <aside>
-                <ArtistInformationSidebar artistId={state?.artistId} />
-            </aside>
+             <aside>
+                <ArtistInformationSidebar artist={singleAlbum?.artistId} />
+            </aside> 
         </main>
     );
 };

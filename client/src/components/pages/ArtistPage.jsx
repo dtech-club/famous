@@ -1,35 +1,32 @@
-import ArtistDiscography from "../page_components/ArtistDiscography.jsx";
-import AddAlbum from "../content_managment_system/AddAlbum.jsx";
-import PatchArtist from "../content_managment_system/PatchArtist.jsx";
-import DeleteArtist from "../content_managment_system/DeleteArtist.jsx";
-import { useLocation } from "react-router-dom";
-import { useEffect, useContext, useState } from "react";
-import { MyContext } from "../../context/context.js";
-import "./artist-page.css";
-import ArtistAllInfo from "../page_components/ArtistAllInfo.jsx";
+import { useEffect, useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { MyContext } from '../../context/context.js';
+import ArtistDiscography from '../page_components/ArtistDiscography.jsx';
+import AddAlbum from '../content_managment_system/AddAlbum.jsx';
+import PatchArtist from '../content_managment_system/PatchArtist.jsx';
+import DeleteArtist from '../content_managment_system/DeleteArtist.jsx';
+import './artist-page.css';
+import ArtistAllInfo from '../page_components/ArtistAllInfo.jsx';
 
 export default function ArtistPage() {
     const [activeArtistInfo, setActiveArtistInfo] =
         useState('artist-information');
-
     const [activeDiscographySection, setActiveDiscographySection] = useState(
         'discography-section'
     );
-
-    const { createArtist, singleArtist, setSingleArtist } =
+    const { id } = useParams();
+    const { createArtist, singleArtist, setSingleArtist, artists } =
         useContext(MyContext);
+
     useEffect(() => {
-        setSingleArtist(createArtist);
-    }, [createArtist]);
-
-    const { state } = useLocation();
-
-    const data = state ? state : createArtist;
+        const artist = artists.find((artist) => artist._id === id);
+        setSingleArtist(artist);
+    }, [id]);
 
     return (
         <main className="grid-section">
             <section>
-                <DeleteArtist artist={data} />
+                <DeleteArtist artist={singleArtist} />
                 <div id="button-to-select-cards">
                     <button
                         onClick={() =>
@@ -45,11 +42,11 @@ export default function ArtistPage() {
 
                 <div id="artist-container-contintional-rendering">
                     {activeArtistInfo === 'artist-information' && (
-                        <ArtistAllInfo data={data} />
+                        <ArtistAllInfo artist={singleArtist} />
                     )}
 
                     {activeArtistInfo === 'edit-artist' && (
-                        <PatchArtist artist={data} />
+                        <PatchArtist artist={singleArtist} />
                     )}
                 </div>
             </section>
@@ -72,13 +69,13 @@ export default function ArtistPage() {
 
                 {activeDiscographySection === 'discography-section' && (
                     <ArtistDiscography
-                        discography={data?.albums}
-                        artist={data}
+                        discography={singleArtist?.albums}
+                        artist={singleArtist}
                     />
                 )}
 
                 {activeDiscographySection === 'add-album' && (
-                    <AddAlbum artist={data} />
+                    <AddAlbum artist={singleArtist} />
                 )}
             </section>
         </main>

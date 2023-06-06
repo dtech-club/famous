@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-export default function CreateTrack({ track }) {
+export default function PatchTrack({ track }) {
     const [err, setErr] = useState({
         trackName: '',
         trackNumber: '',
@@ -19,7 +19,7 @@ export default function CreateTrack({ track }) {
 
         axios
             .patch(
-                `http://localhost:4000/artists/${track.artistId}/album/${track._id}/track`,
+                `http://localhost:4000/artists/${track.artistId}/album/${track.albumId}/track/${track._id}`,
                 formData
             )
             .then((response) => {
@@ -36,7 +36,7 @@ export default function CreateTrack({ track }) {
         <div>
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3">
-                    <h1 className="text-3xl font-bold mb-5">Create Track</h1>
+                    <h1 className="text-3xl font-bold mb-5">Edit Track</h1>
                     <form onSubmit={patchTrack}>
                         <div className="mb-4">
                             <label

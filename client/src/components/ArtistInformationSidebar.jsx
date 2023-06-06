@@ -5,33 +5,26 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { MyContext } from "../context/context";
 
-const ArtistInformationSidebar = ({ artistId }) => {
-  const { singleArtist, setArtistIdState } = useContext(MyContext);
-  console.log(singleArtist);
+const ArtistInformationSidebar = ({ artist }) => {
 
-  // fetch artist data using the artistId
-  useEffect(() => {
-    setArtistIdState(artistId);
-  }, []);
-
-  console.log("singleartist", singleArtist);
+console.log(artist, 'artist in sidebar')
 
   return (
     <div id="sidebar-artist">
-      <Link to={`/artists/${singleArtist._id}`} state={singleArtist}>
+      <Link to={`/artists/${artist?._id}`}>
         <div>
-          <h3>{singleArtist?.artistName}</h3>
-          <img src={singleArtist?.artistImage} alt="artistimage" />
-          <p>{singleArtist?.city}</p>
+          <h3>{artist?.artistName}</h3>
+          <img src={artist?.artistImage} alt="artistimage" />
+          <p>{artist?.city}</p>
         </div>
       </Link>
       <div id="sidebar-discography">
         <ul>
           Discography
-          {singleArtist?.albums?.map((album) => {
+          {artist?.albums?.map((album) => {
             return (
               <div key={album._id}>
-                <Link to={`/albums/${album._id}`} state={album}>
+                <Link to={`/albums/${album._id}`}>
                   <li>
                     <img src={album.albumImage} alt={album.title} />
                     <p>{album.title}</p>
