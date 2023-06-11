@@ -1,8 +1,7 @@
 import { Howl, Howler } from "howler";
 import { useState } from "react";
-import DeleteTrack from "../content_managment_system/DeleteTrack.jsx";
-import PatchTrack from "../content_managment_system/PatchTrack.jsx";
-import { BsClock } from "react-icons/bs";
+import { BsPlay, BsPause, BsStop, BsTrash, BsPencil } from "react-icons/bs";
+import "./track.css";
 
 const Track = ({ track }) => {
   const sourceAudio = track.trackFile;
@@ -44,26 +43,61 @@ const Track = ({ track }) => {
     }
   };
 
-    return (
-        <li key={track?._id}>
-            <button>
-                <DeleteTrack track={track} setActive={setActive} />
+  return (
+    <div className="track-div buttons">
+      <li className="li" key={track?._id}>
+        <button>
+          <span
+            className="icon-button"
+            onClick={() => setActive("delete-track")}
+          >
+            <BsTrash />
+          </span>
+        </button>
+        <button className="buttons" onClick={() => setActive("track")}>
+          track
+        </button>
+        <button className="buttons" onClick={() => setActive("edit-track")}>
+          edit track
+        </button>
+
+        {active === "track" && (
+          <div className="buttons">
+            <span>{track?.trackName}</span>
+            <button onClick={playSound}>
+              <BsPlay />
             </button>
-            <button onClick={() => setActive('track')}>track</button>
-            <button onClick={() => setActive('edit-track')}>edit track</button>
+            <button onClick={pauseSound}>
+              <BsPause />
+            </button>
+            <button onClick={stopSound}>
+              <BsStop />
+            </button>
+          </div>
+        )}
 
-      {active === "track" && (
-        <div>
-          <span>{track?.trackName}</span>
-          <button onClick={playSound}>PLAY</button>
-          <button onClick={pauseSound}>PAUSE</button>
-          <button onClick={stopSound}>STOP</button>
-        </div>
-      )}
+        {active === "delete-track" && (
+          <div className="buttons">
+            <span>{track?.trackName}</span>
 
-            {active === 'edit-track' && <PatchTrack track={track} setActive={setActive} />}
-        </li>
-    );
+            <span className="icon-button" onClick={() => setActive("track")}>
+              <BsTrash />
+            </span>
+          </div>
+        )}
+
+        {active === "edit-track" && (
+          <div className="buttons">
+            <span>{track?.trackName}</span>
+
+            <span className="icon-button" onClick={() => setActive("track")}>
+              <BsPencil />
+            </span>
+          </div>
+        )}
+      </li>
+    </div>
+  );
 };
 
 export default Track;
