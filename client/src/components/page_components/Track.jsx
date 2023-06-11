@@ -1,6 +1,9 @@
 import { Howl, Howler } from "howler";
 import { useState } from "react";
-import { BsPlay, BsPause, BsStop, BsTrash, BsPencil } from "react-icons/bs";
+import { BsPlay, BsPause, BsStop, BsPencil } from "react-icons/bs";
+import DeleteTrack from "../content_managment_system/DeleteTrack.jsx";
+import PatchTrack from "../content_managment_system/PatchTrack.jsx";
+
 import "./track.css";
 
 const Track = ({ track }) => {
@@ -47,18 +50,13 @@ const Track = ({ track }) => {
     <div className="track-div buttons">
       <li className="li" key={track?._id}>
         <button>
-          <span
-            className="icon-button"
-            onClick={() => setActive("delete-track")}
-          >
-            <BsTrash />
-          </span>
+          <DeleteTrack track={track} setActive={setActive} />
         </button>
         <button className="buttons" onClick={() => setActive("track")}>
           track
         </button>
         <button className="buttons" onClick={() => setActive("edit-track")}>
-          edit track
+          <BsPencil />
         </button>
 
         {active === "track" && (
@@ -76,24 +74,8 @@ const Track = ({ track }) => {
           </div>
         )}
 
-        {active === "delete-track" && (
-          <div className="buttons">
-            <span>{track?.trackName}</span>
-
-            <span className="icon-button" onClick={() => setActive("track")}>
-              <BsTrash />
-            </span>
-          </div>
-        )}
-
         {active === "edit-track" && (
-          <div className="buttons">
-            <span>{track?.trackName}</span>
-
-            <span className="icon-button" onClick={() => setActive("track")}>
-              <BsPencil />
-            </span>
-          </div>
+          <PatchTrack track={track} setActive={setActive} />
         )}
       </li>
     </div>
