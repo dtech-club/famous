@@ -1,5 +1,11 @@
-.li {
+/* .li {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 50%;
 }
+
+.tracks {
+  display: flex;
+  text-align: center;
+  justify-content: left;
+} */

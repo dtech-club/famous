@@ -8,7 +8,6 @@ import ArtistInformationSidebar from "../ArtistInformationSidebar.jsx";
 import DeleteAlbum from "../content_managment_system/DeleteAlbum.jsx";
 import PatchAlbum from "../content_managment_system/PatchAlbum.jsx";
 import AddTrack from "../content_managment_system/AddTrack.jsx";
-import "./album-page.css";
 
 const AlbumPage = () => {
   const { id } = useParams();
@@ -22,30 +21,43 @@ const AlbumPage = () => {
   }, [id, albums]);
 
   return (
-    <div className="big-div">
+    <div className="container mx-auto">
       <main>
-        <section id="album-information">
-          <div className="album-photo">
-            <button className="delete-button">
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <button className="py-2 px-4 bg-red-500 text-white rounded">
               <DeleteAlbum album={singleAlbum} />
             </button>
-            <AlbumImage url={singleAlbum?.albumImage} />
-            <div>
+            <div className="flex items-center space-x-4 w-50">
+              <AlbumImage url={singleAlbum?.albumImage} />
               <AlbumName name={singleAlbum?.albumName} />
             </div>
           </div>
         </section>
         <section>
-          <div className="buttons" id="buttons-condition-adding-track">
-            <button onClick={() => setActive("album-tracklist")}>
+          <div className="flex items-center space-x-4 mb-4">
+            <button
+              className="py-2 px-4 bg-blue-500 text-white rounded"
+              onClick={() => setActive("album-tracklist")}
+            >
               Album tracklist
             </button>
 
-            <button onClick={() => setActive("add-track")}>Add track</button>
+            <button
+              className="py-2 px-4 bg-blue-500 text-white rounded"
+              onClick={() => setActive("add-track")}
+            >
+              Add track
+            </button>
 
-            <button onClick={() => setActive("edit-album")}>Edit Album</button>
+            <button
+              className="py-2 px-4 bg-blue-500 text-white rounded"
+              onClick={() => setActive("edit-album")}
+            >
+              Edit Album
+            </button>
           </div>
-          <div className="tracks" id="conditional-renedring-to-add-track">
+          <div>
             {active === "album-tracklist" && (
               <AlbumTrackList tracklist={singleAlbum?.tracks} />
             )}
@@ -58,11 +70,12 @@ const AlbumPage = () => {
           </div>
         </section>
 
-        <aside className="aside">
+        <aside>
           <ArtistInformationSidebar artist={singleAlbum?.artistId} />
         </aside>
       </main>
     </div>
   );
 };
+
 export default AlbumPage;
