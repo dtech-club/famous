@@ -49,7 +49,7 @@ export default function PatchTrack({ track, setActive }) {
                         <div className="mb-4">
                             <label
                                 htmlFor="artistId"
-                                className="appearance-none"
+                                className="hidden"
                             >
                                 ArtistId
                             </label>
@@ -59,14 +59,14 @@ export default function PatchTrack({ track, setActive }) {
                                 defaultValue={track.artistId}
                                 disabled
                                 id="artistId"
-                                className="appearance-none"
+                                className="hidden"
                             />
                         </div>
 
                         <div className="mb-4">
                             <label
                                 htmlFor="albumId"
-                                className="appearance-none"
+                                className="hidden"
                             >
                                 AlbumId
                             </label>
@@ -76,7 +76,7 @@ export default function PatchTrack({ track, setActive }) {
                                 defaultValue={track._id}
                                 disabled
                                 id="albumId"
-                                className="appearance-none"
+                                className="hidden"
                             />
                         </div>
 

@@ -39,7 +39,7 @@ export default function PatchAlbum({ album, setActive }) {
 
                 <form onSubmit={patchAlbum}>
                     <div className="mb-4">
-                        <label htmlFor="artistId" className="appearance-none">
+                        <label htmlFor="artistId" className="hidden">
                             ArtistId
                         </label>
                         <input
@@ -48,7 +48,7 @@ export default function PatchAlbum({ album, setActive }) {
                             defaultValue={album?.artistId._id}
                             disabled
                             id="artistId"
-                            className="appearance-none"
+                            className="hidden"
                         />
                     </div>
 
