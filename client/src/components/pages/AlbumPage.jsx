@@ -23,47 +23,60 @@ const AlbumPage = () => {
   
    
 
-    return (
-        <main>
-            <section id="album-information">
-                <button>
-                    <DeleteAlbum album={singleAlbum} />
-                </button>
-
-                <div>
-                    <AlbumImage url={singleAlbum?.albumImage} />
-                </div>
-                <div>
-                    <AlbumName name={singleAlbum?.albumName} />
-                </div>
-            </section>
-            <section>
-                <div id="buttons-condition-adding-track">
-                    <button onClick={() => setActive('album-tracklist')}>
-                        Album tracklist
-                    </button>
-                    
-                    <button onClick={() => setActive('add-track')}>
-                        Add track
-                    </button>
-
-                    <button onClick={() => setActive('edit-album')}>
-                        Edit Album
-                    </button>
-                </div>
-                <div id="conditional-renedring-to-add-track">
-                    {active === 'album-tracklist' && (
-                        <AlbumTrackList tracklist={singleAlbum?.tracks} />
-                    )}
-                    {active === 'add-track' && <AddTrack album={singleAlbum} setActive={setActive} />}
-                    {active === 'edit-album' && <PatchAlbum album={singleAlbum} setActive={setActive}/>}
-                </div>
-            </section>
-
-             <aside>
-                <ArtistInformationSidebar artist={singleAlbum?.artistId} />
-            </aside> 
-        </main>
-    );
+  return (
+    <div className="container mx-auto my-20 mx-20">
+      <main className="flex flex-row sd:flex-column justify-between">
+        <section className="basis-2/3">
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <button className="py-2 px-4 bg-red-500 text-white rounded">
+                <DeleteAlbum album={singleAlbum} />
+              </button>
+              <div className="flex items-center space-x-4 w-50">
+                <AlbumImage url={singleAlbum?.albumImage} />
+                <AlbumName name={singleAlbum?.albumName} />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <button
+                className="py-2 px-4 bg-blue-500 text-white rounded"
+                onClick={() => setActive("album-tracklist")}
+              >
+                Album tracklist
+              </button>
+              <button
+                className="py-2 px-4 bg-blue-500 text-white rounded"
+                onClick={() => setActive("add-track")}
+              >
+                Add track
+              </button>
+              <button
+                className="py-2 px-4 bg-blue-500 text-white rounded"
+                onClick={() => setActive("edit-album")}
+              >
+                Edit Album
+              </button>
+            </div>
+            <div>
+              {active === "album-tracklist" && (
+                <AlbumTrackList tracklist={singleAlbum?.tracks} />
+              )}
+              {active === "add-track" && (
+                <AddTrack album={singleAlbum} setActive={setActive} />
+              )}
+              {active === "edit-album" && (
+                <PatchAlbum album={singleAlbum} setActive={setActive} />
+              )}
+            </div>
+          </div>
+        </section>
+        <aside clasName="basis-1/3">
+          <ArtistInformationSidebar artist={singleAlbum?.artistId} />
+        </aside>
+      </main>
+    </div>
+  );
 };
 export default AlbumPage;
