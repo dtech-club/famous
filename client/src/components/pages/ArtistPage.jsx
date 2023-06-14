@@ -50,7 +50,7 @@ export default function ArtistPage() {
           </button>
         </div>
 
-        <div className="p-4 bg-black">
+        <div className="p-4  border-2 border-gray-500 rounded-lg bg-gray-400">
           {activeArtistInfo === "artist-information" && (
             <ArtistAllInfo artist={singleArtist} />
           )}
@@ -86,7 +86,7 @@ export default function ArtistPage() {
         </div>
 
         {activeDiscographySection === "discography-section" && (
-          <div className="p-4 bg-black">
+          <div className="p-4 border-2 border-gray-500 rounded-lg bg-gray-400">
             <ArtistDiscography
               discography={singleArtist?.albums}
               artist={singleArtist}

@@ -21,12 +21,7 @@ const ArtistAllInfo = ({ artist }) => {
           country={artist?.state}
           genre={artist?.genre}
         />
-        <p>
-          Here is the info Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Inventore dolor earum voluptatem, nihil ullam hic, delectus
-          provident libero rerum officiis assumenda quaerat non possimus facere,
-          accusantium dignissimos? Totam, provident eaque?
-        </p>
+        <p>Top artist of the week</p>
       </section>
     </div>
   );

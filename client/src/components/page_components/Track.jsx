@@ -142,7 +142,7 @@ const Track = ({ track }) => {
         {active === "edit-track" && (
           <div>
             <button
-              className="py-1 px-4 bg-gray-400 text-black rounded"
+              className="py-1 px-4 bg-gray-400 text-black rounded "
               onClick={() => setActive("track")}
             >
               back
