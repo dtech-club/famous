@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color: black;
-  color: white;
+  background-color: rgb(105, 105, 105);
+  color: rgb(24, 23, 23);
 }
 
 * {
@@ -141,7 +141,7 @@ li {
   width: 23%;
   justify-content: center;
 
-  border: 1px solid black;
+
   border-radius: 20%;
   line-height: 55%;
   padding: 1rem;

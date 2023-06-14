@@ -12,9 +12,9 @@ const Home = () => {
             
 
             <main class = "w-full">
-                <section>
+                {/* <section>
                     <ApiSection />
-                </section>
+                </section> */}
                 <section>
                     <FeaturedArtists />
                 </section>
