@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import { MyContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer.jsx';
 
 export default function CreateArtist() {
     const navigate = useNavigate();
@@ -41,9 +42,10 @@ export default function CreateArtist() {
     };
 
     return (
+        <>
         // create a form using tailwind css
         <div className="flex justify-center items-center w-1/3 mx-auto mt-32 pt-10 border-2 border-gray-500 rounded-lg bg-gray-400">
-            <div className="w-1/3">
+            <div className="w-2/3">
                 <h1 className="text-3xl font-bold mb-5">Create Artist</h1>
 
                 <form onSubmit={CreateArtist}>
@@ -172,7 +174,7 @@ export default function CreateArtist() {
                     <div className="mb-4">
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                             Create Artist
                         </button>
@@ -180,5 +182,7 @@ export default function CreateArtist() {
                 </form>
             </div>
         </div>
+            <Footer />
+            </>
     );
 }

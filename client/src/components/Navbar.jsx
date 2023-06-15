@@ -7,7 +7,7 @@ export default function Navbar() {
     const { user } = useContext(MyContext);
     return (
         <nav className="fixed top-0 bg-black rounded w-screen pt-5 px-10">
-                <div className='fixed left-10 top-2'>
+                <div className='fixed left-10 top-4'>
                     <Header />
                 </div>
             <ul className="">

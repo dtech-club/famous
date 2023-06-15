@@ -32,7 +32,7 @@ export default function ArtistPage() {
                     <button
                         className={`px-4 py-2 rounded ${
                             activeArtistInfo === 'edit-artist'
-                                ? 'bg-blue-500 text-white'
+                                ? 'bg-orange-500 text-white'
                                 : 'bg-gray-200'
                         }`}
                         onClick={() => setActiveArtistInfo('edit-artist')}
@@ -60,7 +60,7 @@ export default function ArtistPage() {
                     <button
                         className={`px-4 py-2 rounded ${
                             activeDiscographySection === 'add-album'
-                                ? 'bg-blue-500 text-white'
+                                ? 'bg-orange-500 text-white'
                                 : 'bg-gray-200'
                         }`}
                         onClick={() => setActiveDiscographySection('add-album')}

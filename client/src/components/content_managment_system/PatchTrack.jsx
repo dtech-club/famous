@@ -41,7 +41,7 @@ export default function PatchTrack({ track, setActive }) {
             <div className="flex justify-center items-center my-8">
                 <div className="">
                     <button
-                        className="py-2 px-4 bg-blue-500 text-white rounded"
+                        className="py-2 px-4 bg-orange-500 text-white rounded"
                         onClick={() => setActive('track')}
                     >
                         back
@@ -204,7 +204,7 @@ export default function PatchTrack({ track, setActive }) {
                         <div>
                             <button
                                 type="submit"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
                                 Submit
                             </button>

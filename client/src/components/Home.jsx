@@ -20,7 +20,7 @@ const Home = () => {
                 </section>
             </main>
             <Footer />
-            <p>&copy; 2023 Famous. All Rights Reserved.</p>
+            
         </div>
     );
 };

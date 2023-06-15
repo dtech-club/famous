@@ -5,14 +5,14 @@ import { useState } from "react";
 const AlbumTrackList = ({ tracklist }) => {
   const [active, setActive] = useState("track");
   return (
-    <div className="list-of-tracks">
-      <ul className="">
-        <li>
+    <div className="">
+      <ul >
+        <li className="">
           {tracklist?.map((track) => {
             console.log("tracklist", track.trackFile);
 
             return (
-              <div key={track?._id} className="my-4 pl-0 ml-0">
+              <div key={track?._id} className="pl-0">
                 <Track track={track} />
               </div>
             );

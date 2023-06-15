@@ -1,13 +1,14 @@
 import { MyContext } from "../context/context.js";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import Footer from "./Footer.jsx";
 
 const Albums = () => {
   const { albums } = useContext(MyContext);
 
   return (
     <>
-      <h2 className="text-center text-3xl font-bold mt-32">Albums</h2>
+      <h2 className="text-center text-3xl font-bold mt-16">Albums</h2>
       <div
         className="albums"
         class="flex justify-between m-10 border-2 border-gray-500 rounded-lg bg-gray-400"
@@ -32,6 +33,7 @@ const Albums = () => {
           );
         })}
       </div>
+      <Footer />
     </>
   );
 };

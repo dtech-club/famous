@@ -100,7 +100,7 @@ const Track = ({ track }) => {
                 </div>
             )}
 
-            <li key={track?._id} className="ml-0 ">
+            <li key={track?._id} className=" ">
                 {active === 'track' && (
                     <div className="flex justify-start space-x-2 ">
                         <div className="min-w-500 basis-3/4 ">
