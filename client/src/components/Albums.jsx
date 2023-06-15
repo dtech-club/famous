@@ -10,11 +10,11 @@ const Albums = () => {
       <h2 className="text-center text-3xl font-bold mt-32">Albums</h2>
       <div
         className="albums"
-        class="flex justify-between mt-10 border-2 border-gray-500 rounded-lg bg-gray-400"
+        class="flex justify-between m-10 border-2 border-gray-500 rounded-lg bg-gray-400"
       >
         {albums.map((album) => {
           return (
-            <div key={album._id} className="small-albums">
+            <div key={album._id} className="small-albums flex flex-col justify-center">
               <Link to={`/albums/${album._id}`}>
                 <h3 class="pb-10 text-center text-xl font-bold">
                   {album.artistName}

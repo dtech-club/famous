@@ -1,6 +1,6 @@
 const Image = ({ url }) => {
     return (
-        <div>
+        <div className="w-96">
         <img src={url} alt="Artist" />
         </div>
     );

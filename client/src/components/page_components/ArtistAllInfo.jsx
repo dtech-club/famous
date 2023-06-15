@@ -5,7 +5,7 @@ import ArtistPersonalInfo from '../page_components/ArtistPersonalInfo';
 
 const ArtistAllInfo = ({ artist }) => {
     return (
-        <div id="artist-information">
+        <div id="artist-information" >
             <div className="name-section font-bold text-xl mb-6">
                 <ArtistName name={artist?.artistName} />
             </div>

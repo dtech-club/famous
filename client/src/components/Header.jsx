@@ -4,7 +4,7 @@ const Header = () => {
        <img
         src="../src/images/Asset1.png"
         alt="phooofyoutube"
-        style={{height: "15vh", margin: "0 auto", }}
+        style={{height: "8vh", margin: "0 auto", }}
         
         
       /> 

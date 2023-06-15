@@ -14,7 +14,7 @@ const Artists = () => {
       >
         {artists.map((artist) => {
           return (
-            <div key={artist._id} className="small-albums">
+            <div key={artist._id} className="m-10 flex flex-col justify-center">
               <Link to={`/artists/${artist._id}`} state={artist}>
                 <h3 class="pb-10 text-center text-xl font-bold">
                   {artist.artistName}
@@ -22,7 +22,7 @@ const Artists = () => {
                 <img
                   src={artist.artistImage}
                   alt="artistimage"
-                  class="object-contain rounded"
+                  class="object-contain rounded h-60"
                 />
                 <p class="py-10 text-center text-lg font-semibold">
                   {artist.city}
