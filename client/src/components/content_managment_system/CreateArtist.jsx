@@ -42,7 +42,7 @@ export default function CreateArtist() {
 
     return (
         // create a form using tailwind css
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center w-1/3 mx-auto mt-20 pt-10 border-2 border-gray-500 rounded-lg bg-gray-400">
             <div className="w-1/3">
                 <h1 className="text-3xl font-bold mb-5">Create Artist</h1>
 

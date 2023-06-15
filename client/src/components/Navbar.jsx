@@ -6,7 +6,7 @@ import Header from "./Header.jsx";
 export default function Navbar() {
   const { user } = useContext(MyContext);
   return (
-    <nav className="fixed top-0 bg-gray-500 rounded">
+    <nav className="fixed top-0 bg-black rounded w-screen">
       <Header />
       <ul>
         

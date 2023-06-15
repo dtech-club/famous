@@ -15,6 +15,9 @@ export default function Container({ children }) {
     const [createAlbum, setCreateAlbum] = useState({ tracks: [] });
     const [createTrack, setCreateTrack] = useState({});
 
+    //stuff to manage the Now playing bar
+    
+
 
     ///get all artists and albums on page load
 

@@ -2,9 +2,10 @@ const Header = () => {
   return (
     <header class = "">
        <img
-        src="../src/images/famous-banner.png"
+        src="../src/images/Asset1.png"
         alt="phooofyoutube"
-        style={{ width: "100vw", height: "30vh" }}
+        style={{height: "20vh", margin: "0 auto" }}
+        
       /> 
     </header>
   );
