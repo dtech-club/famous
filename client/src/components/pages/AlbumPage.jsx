@@ -22,7 +22,7 @@ const AlbumPage = () => {
 
   return (
     <div className="container mx-auto my-20 mx-20">
-      <main className="flex flex-row justify-center">
+      <main className="flex flex-row justify-center mt-20">
         <section className="basis-2/3 border-2 border-gray-500 rounded-lg bg-gray-400 mr-10 p-10">
           <div>
             <div className="flex items-center justify-between mb-4">

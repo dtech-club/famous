@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { MyContext } from "../context/context";
+import Header from "./Header.jsx";
 
 export default function Navbar() {
   const { user } = useContext(MyContext);
   return (
     <nav className="fixed top-0 right-10">
+      <Header />
       <ul>
+        
         <li>
           {" "}
           <NavLink to="/search"> Search </NavLink>{" "}

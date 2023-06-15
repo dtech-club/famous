@@ -7,7 +7,7 @@ const Artists = () => {
 
   return (
     <>
-      <h2 className="text-center text-3xl font-bold">Artists</h2>
+      <h2 className="text-center text-3xl font-bold mt-20">Artists</h2>
       <div
         className="albums"
         class="flex justify-between m-20 border-2 border-gray-500 rounded-lg bg-gray-400"

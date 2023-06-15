@@ -7,7 +7,7 @@ const Albums = () => {
 
   return (
     <>
-      <h2 className="text-center text-3xl font-bold">Albums</h2>
+      <h2 className="text-center text-3xl font-bold mt-20">Albums</h2>
       <div
         className="albums"
         class="flex justify-between m-20 border-2 border-gray-500 rounded-lg bg-gray-400"

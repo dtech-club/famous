@@ -8,10 +8,7 @@ import Navbar from './Navbar.jsx';
 const Home = () => {
     return (
         <div className="App">
-            <Header />
-            
-
-            <main class = "w-full">
+            <main class="w-full mt-20">
                 {/* <section>
                     <ApiSection />
                 </section> */}

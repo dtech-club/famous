@@ -10,11 +10,13 @@ import AlbumPage from './components/pages/AlbumPage.jsx';
 import Login from './components/Login.jsx';
 import CreateArtist from './components/content_managment_system/CreateArtist.jsx';
 import PageNotFound from './components/pages/PageNotFound.jsx';
+import Header from './components/Header.jsx';
 
 function App() {
     return (
         <HashRouter>
             <div className="App">
+                <Header />
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
