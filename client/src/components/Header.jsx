@@ -1,10 +1,11 @@
 const Header = () => {
   return (
-    <header class = "">
+    <header >
        <img
         src="../src/images/Asset1.png"
         alt="phooofyoutube"
-        style={{height: "20vh", margin: "0 auto" }}
+        style={{height: "15vh", margin: "0 auto", }}
+        
         
       /> 
     </header>
