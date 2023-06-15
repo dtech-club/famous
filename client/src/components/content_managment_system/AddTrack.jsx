@@ -25,7 +25,7 @@ const AddTrack = ({ album, setActive }) => {
             )
             .then((response) => {
                 if (response.data.success) {
-                    console.log('lets check',response.data.data);
+                    console.log('lets check', response.data.data);
                     setAlbums(response.data.data);
                     setActive('album-tracklist');
                     navigate(`/albums/${response.data.albumId}`);
@@ -40,12 +40,18 @@ const AddTrack = ({ album, setActive }) => {
         <div>
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3">
-                    <h1 className="text-3xl font-bold mb-5">Create Track</h1>
+                    <button
+                        className="py-2 px-4 bg-blue-500 text-white rounded"
+                        onClick={() => setActive('album-tracklist')}
+                    >
+                        Back
+                    </button>
+                    {/* <h1 className="text-3xl font-bold mb-5">Create Track</h1> */}
                     <form onSubmit={postTrack}>
                         <div className="mb-4">
                             <label
                                 htmlFor="artistId"
-                                className="appearance-none"
+                                className="appearance-none hidden"
                             >
                                 ArtistId
                             </label>
@@ -54,14 +60,14 @@ const AddTrack = ({ album, setActive }) => {
                                 name="artistId"
                                 value={album.artistId._id}
                                 id="artistId"
-                                className="appearance-none"
+                                className="appearance-none hidden"
                             />
                         </div>
 
                         <div className="mb-4">
                             <label
                                 htmlFor="albumId"
-                                className="appearance-none"
+                                className="appearance-none hidden"
                             >
                                 AlbumId
                             </label>
@@ -70,7 +76,7 @@ const AddTrack = ({ album, setActive }) => {
                                 name="albumId"
                                 value={album._id}
                                 id="albumId"
-                                className="appearance-none"
+                                className="appearance-none hidden"
                             />
                         </div>
 

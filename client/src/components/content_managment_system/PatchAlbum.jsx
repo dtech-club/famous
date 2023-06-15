@@ -35,7 +35,13 @@ export default function PatchAlbum({ album, setActive }) {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Edit Album</h1>
+            <button
+                    className="py-2 px-4 bg-blue-500 text-white rounded"
+                    onClick={() => setActive("album-tracklist")}
+                  >
+                    Back
+                  </button>
+                {/* <h1 className="text-3xl font-bold mb-5">Edit Album</h1> */}
 
                 <form onSubmit={patchAlbum}>
                     <div className="mb-4">

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MyContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 
-const PatchArtist = ({ artist }) => {
+const PatchArtist = ({ artist, setActiveArtistInfo }) => {
     const navigate = useNavigate();
     const { setArtists } = useContext(MyContext);
 
@@ -39,7 +39,12 @@ const PatchArtist = ({ artist }) => {
         // create a form using tailwind css
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Edit Artist</h1>
+            <button
+            className="py-2 px-4 bg-blue-500 text-white rounded"
+            onClick={() => setActiveArtistInfo("artist-information")}
+          >
+            Back
+          </button>
 
                 <form onSubmit={patchArtist}>
                     <div className="mb-4">

@@ -22,7 +22,7 @@ const AlbumPage = () => {
 
   return (
     <div className="container mx-auto my-20 mx-20">
-      <main className="flex flex-row">
+      <main className="flex flex-row justify-center">
         <section className="basis-2/3 border-2 border-gray-500 rounded-lg bg-gray-400 mr-10 p-10">
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -42,16 +42,11 @@ const AlbumPage = () => {
                   </button>
                   <button
                     className="py-2 px-4 bg-blue-500 text-white rounded"
-                    onClick={() => setActive("album-tracklist")}
-                  >
-                    Album tracklist
-                  </button>
-                  <button
-                    className="py-2 px-4 bg-blue-500 text-white rounded"
                     onClick={() => setActive("add-track")}
                   >
                     Add track
                   </button>
+                  
                   <button
                     className="py-2 px-4 bg-blue-500 text-white rounded"
                     onClick={() => setActive("edit-album")}

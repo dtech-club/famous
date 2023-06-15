@@ -1,7 +1,7 @@
 const AlbumImage = ({ url }) => {
   return (
-    <div>
-      <img style={{ width: "50%" }} src={url} alt="Album" />
+    <div className="rounded mb-10">
+      <img style={{ width: "50%" }} src={url} alt="Album" className="rounded" />
     </div>
   );
 };

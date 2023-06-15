@@ -28,16 +28,7 @@ export default function ArtistPage() {
           <button className="p-4 py-2 rounded bg-red">
             <DeleteArtist artist={singleArtist} />
           </button>
-          <button
-            className={`px-4 py-2 rounded ${
-              activeArtistInfo === "artist-information"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200"
-            }`}
-            onClick={() => setActiveArtistInfo("artist-information")}
-          >
-            Artist Information
-          </button>
+          
           <button
             className={`px-4 py-2 rounded ${
               activeArtistInfo === "edit-artist"
@@ -56,7 +47,7 @@ export default function ArtistPage() {
           )}
 
           {activeArtistInfo === "edit-artist" && (
-            <PatchArtist artist={singleArtist} />
+            <PatchArtist artist={singleArtist} setActiveArtistInfo={setActiveArtistInfo}/>
           )}
         </div>
       </section>

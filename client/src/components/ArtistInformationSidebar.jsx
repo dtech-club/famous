@@ -10,7 +10,7 @@ const ArtistInformationSidebar = ({ artist }) => {
       <div>
         <Link to={`/artists/${artist?._id}`}>
           <div className="mb-4 text-center flex flex-col items-center justify-center ">
-            <h3 className="text-xl font-bold mb-2 ">{artist?.artistName}</h3>
+            <h3 className="text-xl font-bold my-10 ">{artist?.artistName}</h3>
             <img
               src={artist?.artistImage}
               alt="artistimage"
@@ -21,7 +21,7 @@ const ArtistInformationSidebar = ({ artist }) => {
         </Link>
       </div>
       <div>
-        <h2 className="flex items-center justify-center">Discography:</h2>
+        <h2 className="flex items-center justify-center font-bold mt-10">Discography:</h2>
         <ul className="flex flex-col list-none ml-0 pl-0">
           {artist?.albums?.map((album) => (
             <li key={album._id} className="my-5">

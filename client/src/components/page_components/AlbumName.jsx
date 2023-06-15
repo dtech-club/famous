@@ -1,7 +1,7 @@
 const AlbumName = ({name}) => {
     return (
         <div>
-            <h1>{name}</h1>
+            <h3 className="font-bold text-xl mb-10">{name}</h3>
         </div>
     );
 }

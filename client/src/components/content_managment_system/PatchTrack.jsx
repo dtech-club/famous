@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
-
 export default function PatchTrack({ track, setActive }) {
     const navigate = useNavigate();
     const { setAlbums } = useContext(MyContext);
@@ -14,9 +13,6 @@ export default function PatchTrack({ track, setActive }) {
         trackImage: '',
         trackFile: '',
     });
-   
-
-
 
     const patchTrack = (e) => {
         e.preventDefault();
@@ -44,13 +40,15 @@ export default function PatchTrack({ track, setActive }) {
         <div>
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/3">
-                    <h1 className="text-3xl font-bold mb-5">Edit Track</h1>
+                    <button
+                        className="py-2 px-4 bg-blue-500 text-white rounded"
+                        onClick={() => setActive('track')}
+                    >
+                        back
+                    </button>
                     <form onSubmit={patchTrack}>
                         <div className="mb-4">
-                            <label
-                                htmlFor="artistId"
-                                className="hidden"
-                            >
+                            <label htmlFor="artistId" className="hidden">
                                 ArtistId
                             </label>
                             <input
@@ -64,10 +62,7 @@ export default function PatchTrack({ track, setActive }) {
                         </div>
 
                         <div className="mb-4">
-                            <label
-                                htmlFor="albumId"
-                                className="hidden"
-                            >
+                            <label htmlFor="albumId" className="hidden">
                                 AlbumId
                             </label>
                             <input
