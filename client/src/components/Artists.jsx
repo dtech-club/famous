@@ -16,13 +16,13 @@ const Artists = () => {
           return (
             <div key={artist._id} className="small-albums">
               <Link to={`/artists/${artist._id}`} state={artist}>
-                <h3 class="py-10 text-center text-xl font-bold">
+                <h3 class="pb-10 text-center text-xl font-bold">
                   {artist.artistName}
                 </h3>
                 <img
                   src={artist.artistImage}
                   alt="artistimage"
-                  class="object-contain rounded images"
+                  class="object-contain rounded"
                 />
                 <p class="py-10 text-center text-lg font-semibold">
                   {artist.city}

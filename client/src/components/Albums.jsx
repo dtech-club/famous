@@ -16,7 +16,7 @@ const Albums = () => {
           return (
             <div key={album._id} className="small-albums">
               <Link to={`/albums/${album._id}`}>
-                <h3 class="py-10 text-center text-xl font-bold">
+                <h3 class="pb-10 text-center text-xl font-bold">
                   {album.artistName}
                 </h3>
                 <img
@@ -24,7 +24,7 @@ const Albums = () => {
                   alt={album?.albumName}
                   class="object-contain rounded"
                 />
-                <p class="py-10 text-center text-lg-font-semibold">
+                <p class="py-10 text-center text-lg font-semibold">
                   {album.albumName}
                 </p>
               </Link>
