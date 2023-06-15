@@ -3,8 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../context/context.js';
 
-
-const AddAlbum = ({ artist }) => {
+const AddAlbum = ({ artist, setActiveDiscographySection }) => {
     const navigate = useNavigate();
     const { setAlbums, setArtists } = useContext(MyContext);
     const [err, setErr] = useState({ userName: '', email: '', password: '' });
@@ -29,13 +28,23 @@ const AddAlbum = ({ artist }) => {
 
     return (
         // create a form using tailwind css
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center my-8">
             <div className="w-1/3">
-                <h1 className="text-3xl font-bold mb-5">Create Album</h1>
+                <button
+                    className="py-2 px-4 bg-blue-500 text-white rounded"
+                    onClick={() =>
+                        setActiveDiscographySection('discography-section')
+                    }
+                >
+                    Back
+                </button>
 
                 <form onSubmit={postAlbum}>
                     <div className="mb-4">
-                        <label htmlFor="artistId" className="appearance-none">
+                        <label
+                            htmlFor="artistId"
+                            className="appearance-none hidden"
+                        >
                             ArtistId
                         </label>
                         <input
@@ -43,7 +52,7 @@ const AddAlbum = ({ artist }) => {
                             name="artistId"
                             defaultValue={artist._id.toString()}
                             id="artistId"
-                            className="appearance-none"
+                            className="appearance-none hidden"
                         />
                     </div>
 

@@ -38,8 +38,8 @@ export default function PatchTrack({ track, setActive }) {
 
     return (
         <div>
-            <div className="flex justify-center items-center h-screen">
-                <div className="w-1/3">
+            <div className="flex justify-center items-center my-8">
+                <div className="">
                     <button
                         className="py-2 px-4 bg-blue-500 text-white rounded"
                         onClick={() => setActive('track')}
