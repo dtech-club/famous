@@ -33,7 +33,7 @@ const Artists = () => {
           );
         })}
       </div>
-      <Footer />
+      
     </>
   );
 };

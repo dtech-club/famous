@@ -33,7 +33,7 @@ const Albums = () => {
           );
         })}
       </div>
-      <Footer />
+      
     </>
   );
 };

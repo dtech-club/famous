@@ -182,7 +182,7 @@ export default function CreateArtist() {
                 </form>
             </div>
         </div>
-            <Footer />
+            
             </>
     );
 }

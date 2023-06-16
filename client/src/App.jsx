@@ -11,6 +11,7 @@ import Login from './components/Login.jsx';
 import CreateArtist from './components/content_managment_system/CreateArtist.jsx';
 import PageNotFound from './components/pages/PageNotFound.jsx';
 import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
 
 function App() {
     return (
@@ -27,11 +28,10 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/createartist" element={<CreateArtist />} />
 
-
-
                     {/* route for page not found */}
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
+                <Footer />
             </div>
         </HashRouter>
     );

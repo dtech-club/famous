@@ -19,7 +19,7 @@ const Home = () => {
                     <FeaturedAlbums />
                 </section>
             </main>
-            <Footer />
+            
             
         </div>
     );
