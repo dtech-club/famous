@@ -77,7 +77,7 @@ const Track = ({ track }) => {
 
     return (
         <div>
-            {isPlaying && (
+            {/* {isPlaying && (
                 <div className="bg-gray-200 p-4 mb-4">
                     <h1 className="text-lg font-bold">
                         Now playing: {track?.trackName}
@@ -98,7 +98,7 @@ const Track = ({ track }) => {
                         }}
                     />
                 </div>
-            )}
+            )} */}
 
             <li key={track?._id} className=" ">
                 {active === 'track' && (
